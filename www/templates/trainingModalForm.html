@@ -1,0 +1,76 @@
+<ion-modal-view class="modalView" ng-controller="trainingModalFormCtrl" type="text/ng-template">
+  <header class="bar bar-header customBar bar-positive ">
+    <div class="button button-clear" ng-click="closeModal()"><span class="icon ion-close"></span></div>
+    <h1 class="title">{{trainingForm.title}}</h1>
+    <div class="button button-clear" ng-click="saveModal()"><span class="icon ion-checkmark"></span></div>
+  </header>
+
+
+    <!-- All Tab -->
+      <ion-nav-view name="tab-competitionAll" class="has-header">
+
+
+        <div class="list">
+          <label class = "item item-input item-select">
+             <div class = "input-label">
+                Sport
+             </div>
+             <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(sportType)">
+             </select>
+          </label>
+          <div class="item item-divider">
+            Duration {{trainingForm.duration}} minutes
+          </div>
+          <div class="item range scroll">
+              <i class="icon ion-ios7-stopwatch-outline"></i>
+              <input type="range"
+                     name="minutes"
+                     min="0"
+                     max="120"
+                     step="10"
+                     ng-model="trainingForm.duration"
+                     value="{{trainingForm.duration}}"
+                     >
+              <i class="icon ion-ios7-stopwatch"></i>
+          </div>
+          <div class="item item-divider">
+            Distance {{trainingForm.distance}} km
+          </div>
+          <div class="item range scroll">
+
+            <i class="icon ion-ios7-stopwatch-outline"></i>
+            <input type="range"
+                   name="minutes"
+                   min="0"
+                   max="60"
+                   step="15"
+                   ng-model="trainingForm.distance"
+                   value="{{trainingForm.distance}}"
+                   pin="true"
+                   >
+
+            <i class="icon ion-ios7-stopwatch"></i>
+          </div>
+          <div class="item item-divider">
+            Date
+          </div>
+          <label class="item item-input" >
+            <span style="text-align:center;">
+                <input type="date" ng-model="trainingForm.date"  >
+            </span>
+          </label>
+          <label class="item item-divider">
+            name
+          </label>
+          <label class="item item-input" style="text-align:center;">
+            <span style="text-align:center;">
+              <input type="text" ng-model="trainingForm.title" style="text-align: center" class="col col-center" autofocus  onfocus="this.value = this.value;" placeholder="Enter training name">
+            </span>
+          </label>
+        </div>
+
+
+      </ion-nav-view>
+
+
+</ion-modal-view>

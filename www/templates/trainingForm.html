@@ -1,0 +1,72 @@
+<ion-view view-title="Edit training" class = "myView">
+  <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+
+<ion-nav-view  class="has-header">
+          <div class="list">
+            <label class = "item item-input item-select">
+               <div class = "input-label">
+                  Sport
+               </div>
+               <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(sportType)">
+               </select>
+            </label>
+            <div class="item item-divider">
+              Duration {{trainingForm.duration | minutes2Hours:' min'}}
+            </div>
+            <div class="item range scroll" ng-class="{'disableInput':(trainingForm.disableDuration == true)}" >
+                0
+                <input type="range"
+                       name="minutes"
+                       min="0"
+                       max={{trainingForm.maxTime}}
+                       step={{trainingForm.stepTime}}
+                       ng-model="trainingForm.duration"
+                       value="{{trainingForm.duration}}"
+                       >
+                {{trainingForm.maxTime | minutes2Hours:''}}
+            </div>
+            <div class="item item-divider">
+              Distance {{trainingForm.distance}} km
+            </div>
+            <div class="item range scroll" ng-class="{'disableInput':(trainingForm.disableDistance == true)}">
+              0
+              <input type="range"
+                     name="minutes"
+                     min="0"
+                     max={{trainingForm.maxDistance}}
+                     step={{trainingForm.stepDistance}}
+                     ng-model="trainingForm.distance"
+                     value="{{trainingForm.distance}}"
+                     >
+              {{trainingForm.maxDistance}}km
+            </div>
+            <div class="item item-divider">
+              Date
+            </div>
+            <label class="item item-input">
+              <span>
+                  <input type="date" ng-model="trainingForm.date" class="dayEvent">
+              </span>
+            </label>
+            <label class="item item-divider">
+              name
+            </label>
+            <label class="item item-input">
+              <span>
+                <input type="text" ng-model="trainingForm.title" style="text-align: center" class="col col-center" placeholder="Enter training name">
+              </span>
+            </label>
+          </div>
+
+          <button class="button button-center customBtnSave" ng-click="saveTraining()">
+            Save
+          </button>
+          <button ng-show="trainingForm.id" class="button ng-hide button-center  customBtnDelete button-assertive" ng-click="confirmDelete(trainingForm.id)">
+            Delete
+          </button>
+
+
+        </ion-nav-view >
+</ion-view>

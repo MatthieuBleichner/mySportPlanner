@@ -1,0 +1,82 @@
+<ion-modal-view class="modalView" ng-controller="competitionModalFormCtrl" type="text/ng-template">
+  <header class="bar bar-header customBar bar-positive ">
+    <div class="button button-clear" ng-click="closeModal()"><span class="icon ion-close"></span></div>
+    <h1 class="title">{{competitionForm.title}}</h1>
+    <div class="button button-clear" ng-click="saveModal()"><span class="icon ion-checkmark"></span></div>
+  </header>
+
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive slide-left-right" >
+
+    <!-- Account Tab -->
+    <ion-tab title="Sport" icon-off="ion-ios-body-outline" icon-on="ion-ios-body">
+      <ion-nav-view name="tab-trainingSport">
+        <ion-content  overflow-scroll="false" has-header="true">
+
+
+          <ion-radio  ng-repeat="sport in sportList"
+                      ng-value="sport.name"
+                      ng-model="sportType"
+                      ng-change="sportChange(sport)"
+                      name="sport">
+            {{ sport.name }}
+          </ion-radio>
+        </ion-content>
+      </ion-nav-view>
+    </ion-tab>
+
+    <!-- Date Tab -->
+    <ion-tab title="Date" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar">
+      <ion-nav-view name="tab-competitionDate">
+        <ion-content  class="navElem">
+          <label class="item item-input">
+            <span>
+      		      <input type="date" ng-model="competitionForm.date">
+            </span>
+          </label>
+      	</ion-content>
+      </ion-nav-view>
+    </ion-tab>
+
+    <!-- Name Tab -->
+    <ion-tab title="Name" icon-off="ion-ios-pricetags-outline" icon-on="ion-ios-pricetags">
+      <ion-nav-view name="tab-competitionName">
+        <ion-content class="navElem">
+      		    <input type="text" ng-model="competitionForm.title" style="text-align: center" class="col col-center" autofocus  onfocus="this.value = this.value;" placeholder="Enter competition name">
+      	</ion-content>
+      </ion-nav-view>
+    </ion-tab>
+
+    <!-- Comment Tab -->
+    <ion-tab title="Comment" icon-off="ion-ios-paper-outline" icon-on="ion-ios-paper">
+      <ion-nav-view name="tab-competitionComment">
+        <ion-content  class="navElem">
+      		    <input type="text" ng-model="competitionForm.content" style="text-align: center" class="col col-center" autofocus  onfocus="this.value = this.value;" placeholder="Add extra infos about this event">
+      	</ion-content>
+      </ion-nav-view>
+    </ion-tab>
+
+    <!-- Distance Tab -->
+    <!--ion-tab title="Distance" icon-off="ion-ios-circle-outline" icon-on="ion-ios-circle-filled">
+      <ion-nav-view name="tab-competitionDistance">
+        <ion-content>
+      		<input type="text" ng-model="numbers" readonly>
+      	</ion-content>
+      	<ion-digit-keyboard settings="keyboardSettings" ng-show="keyboardVisible"></ion-digit-keyboard>
+      </ion-nav-view>
+    </ion-tab-->
+
+    <!-- Duration Tab -->
+    <!--ion-tab title="Duration" icon-off="ion-ios-circle-outline" icon-on="ion-ios-circle-filled">
+      <ion-nav-view name="tab-competitionDistance">
+        <ion-content>
+      		<input type="text" ng-model="numbers" readonly>
+      	</ion-content>
+      	<ion-digit-keyboard settings="keyboardSettings" ng-show="keyboardVisible"></ion-digit-keyboard>
+      </ion-nav-view>
+    </ion-tab-->
+
+
+
+  </ion-tabs>
+
+</ion-modal-view>

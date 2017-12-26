@@ -1,0 +1,69 @@
+<ion-view class = "myView">
+  <ion-nav-bar class="bar mainTitle" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-nav-title class="mainTitle">
+    <span class="txt-title"> Sport Planner </span>
+    <span class="img-title"><img src="img/all.svg"  height="15" ></img></span>
+</ion-nav-title>
+  <ion-content>
+
+
+    <div class="card custom-card">
+      <div class="item item-divider center-text">
+        <i class="icon ion-android-stopwatch"></i>
+        Training
+      </div>
+      <ion-list>
+        <ion-item ng-if="$index<3" ng-repeat="training in trainingList">
+          <ion-avatar>
+            <img src={{training.imgUrl}} class="sportpicsize"  >
+          </ion-avatar>
+          <div class="item-position" ng-click="gotoEditTraining(training.id )">
+            <h2>{{training.title}}</h2>
+            <p>{{training.trainingDate | date:'dd MMMM yyyy'}}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <ion-item>
+        <a ng-if="trainingList.length<=2" class="button button-block customBtnInList" ng-click="gotoEditTraining(training.id )">
+          <i class="icon ion-plus-circled"></i> Add training
+        </a>
+        <a ng-if="trainingList.length>2" href="#/listTraining" class="button button-block customBtnInList">
+          See more  <i class="icon ion-chevron-right"></i>
+        </a>
+      </ion-item>
+    </div>
+
+    <div class="card custom-card background-image">
+      <div class="item item-divider center-text">
+        <i class="icon ion-trophy"></i>
+        Competition
+      </div>
+        <ion-list  no-lines>
+          <ion-item ng-if="$index<3" ng-repeat="item in itemsList">
+            <ion-avatar>
+              <img src={{item.imgUrl}} class="sportpicsize"  >
+            </ion-avatar>
+            <div class="item-position" ng-click="gotoEdit(item.id)">
+              <h2>{{item.title}}</h2>
+              <p>{{item.activityDate | date:'dd MMMM yyyy'}}</p>
+            </div>
+          </ion-item>
+        </ion-list>
+        <ion-item>
+          <a ng-if="itemsList.length<=2" ng-click="gotoEdit(item.id)" class="button button-block customBtnInList">
+            <i class="icon ion-plus-circled"></i> Add event
+          </a>
+          <a ng-if="itemsList.length>2" href="#/listCompetition" class="button button-block customBtnInList">
+            See more  <i class="icon ion-chevron-right"></i>
+          </a>
+        </ion-item>
+    </div>
+
+  </ion-content>
+
+
+
+</ion-view>

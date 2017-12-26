@@ -1,1 +1,492 @@
 /* Empty. Add your own CSS if you like */
+.myView{
+    background: #f4f4f4 !important;
+}
+
+.modalView{
+  top: 15%;
+  right: 10% !important;
+  left: 10% !important;
+  min-height: 24px !important;
+  height:75%;
+  width: 80% !important;
+  background:  light;
+  z-index: 12 !important;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+.center-text {
+   text-align: center;
+}
+
+.custom-icon {
+  font-size: 30px;
+}
+
+.even-more-custom-icon {
+  font-size: 128px;
+}
+
+.moreCompetition{
+  position: relative;
+  left : 50%;
+  top: 6px;
+}
+
+.moreCompetition2{
+  position: relative;
+  left : 45.5%;
+  top: 13px;
+}
+
+.button.customBtn{
+    left:10px;
+    margin:15px;
+    background:#7caf37;
+    color:white !important;
+}
+
+.button.customBtnSave{
+    position:absolute;
+    right:10px;
+    margin:15px;
+    background:#7caf37;
+    color:white !important;
+}
+
+.button.customBtnDelete{
+    position:absolute;
+    left:10px;
+    margin:15px;
+    color:white !important;
+}
+
+.button.customBtnInList{
+    margin: 0px;
+    background:#7caf37;
+    color:white !important;
+}
+
+.button.deleteButton{
+    background:white;
+    top:5%;
+    right  : -70%;
+    font-size: 30px;
+  }
+.button.competionButton{
+    background:white;
+    top:5%;
+    right  : -70%;
+    font-size: 20px;
+  }
+
+
+
+.navElem {
+    height:25%;
+    width:70%;
+    text-align:center;
+    vertical-align:middle;
+    margin:auto;
+}
+
+
+
+.button.customBtn:focus{
+    background:#464646
+}
+
+.bar.customBar{
+    background-color:#f5511e !important;
+    color:white !important;
+}
+
+.bar.mainTitle{
+    background-color:#f5511e !important;
+    color:white !important;
+    height:55px
+}
+
+.title-activities{
+    vertical-align:middle;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+.txt-title {
+  display: block;
+  line-height: .7em;
+  font-size: 18px;
+  margin: 10px 0;
+  margin-bottom: 6px;
+}
+
+.img-title {
+  display: block;
+  line-height: .7em;
+  font-size: 18px;
+  margin: 3px 0;
+}
+
+.has-header {
+   top: 55px;
+}
+
+.item-position{
+  position: absolute;
+  top    : 20%;
+  right  : 30%;
+  width  : 45% !important;
+  height : 100% !important;
+
+}
+
+.bottomBorder{
+  border-top: none;
+  border-bottom:  medium dashed blue;
+
+}
+.bottomBorder:last-child{
+  border-top: medium dashed red;
+  border-bottom:  10px dashed red;
+
+}
+.sportpicsize  {
+    width: 100% !important;
+    height : 100% !important;
+    max-width: 35px !important;  //any size
+    max-height: 35px !important; //any size
+}
+
+
+
+.button.customBtn:hover{
+  -webkit-transform: translate3d(0, -1px, 0)  !important;
+  transform: translate3d(0, -1px, 0) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: darken($assertive, 10%) !important;
+}
+
+.custom-card{
+  overflow: hidden;
+}
+
+
+.modal-backdrop-bg {
+    transition: opacity 300ms ease-in-out;
+    -webkit-transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+}
+
+.active .modal-backdrop-bg {
+    opacity: 0.5;
+}
+
+.custom-bar{
+  background:  #f5511e
+}
+
+
+.button-float{
+  background: #7caf37;
+  color:white !important;
+  z-index: 12 !important;
+  position: absolute !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transition: 0.2s linear !important;
+  transition: 0.2s linear !important;
+  -webkit-transition-property: -webkit-transform, all !important;
+  transition-property: transform, all !important;
+
+}
+
+.button-float:hover{
+  -webkit-transform: translate3d(0, -1px, 0)  !important;
+  transform: translate3d(0, -1px, 0) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: darken($assertive, 10%) !important;
+}
+
+
+.disableInput{
+   pointer-events:none;
+    background: #dddddd;
+}
+
+
+/* The actual timeline (the vertical ruler) */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  background-color: #555;
+  top: 0;
+  bottom: 45px;
+  left: 85px;
+  margin-left: -3px;
+}
+
+/* Container around content */
+.container {
+  padding: 20px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 100%;
+  padding-left: 100px;
+  left: 0%;
+}
+
+/* The circles on the timeline */
+.container::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  right: -17px;
+  background-color: #FF9F55;
+  top: 37px; /*container::before top + container::before height / 2 */
+  border-radius: 50%;
+  z-index: 1;
+  left: 79.5px;/* -container padding-left + timeline left */
+}
+
+/* Add arrows to the right container (pointing left) */
+.container::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 32px;
+  width: 0;
+  z-index: 1;
+  left: 90px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+/* The actual content */
+.content {
+  padding: 15px;
+  background-color: white;
+  position: relative;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* Container for dates around content */
+.dateContainer {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  left: 0%;
+}
+
+/* The actual content */
+.dateContent {
+  padding: 15px 15px;
+  background-color: white;
+  position: absolute;
+  border-radius: 50%;
+  left:10px;
+  width: 50px;
+  height: 50px;
+  top:20px;
+  border: 2px solid #555;
+  color: #f5511e;
+}
+
+
+.bubble {
+  position: absolute;
+  top:5px;
+  left:3px;
+  width: 40px;
+  height: 40px;
+  display: table;
+}
+
+.bubble p {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.date {
+	background: #f5511e;
+	display: inline-block;
+	color: white
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.list-ios>.item-block:first-child {
+    border-top: none;
+}
+.list-ios>.item-block:last-child {
+    border-bottom: none;
+}
+
+.trainingDate{
+  margin-top: 30px;
+  right: 50px;
+  font-weight: bold;
+  font-size: 50px;
+  padding: 17px;
+  text-align:center;
+  color:#f5511e !important
+}
+
+
+.trainingDay{
+  font-weight: bold;
+  font-size: 25px;
+  text-align:center;
+  color:#f5511e !important
+}
+
+.trainingMonth{
+  font-weight: bold;
+  padding: 17px;
+  font-size: 15px;
+  text-align:center;
+  color:#d9d9d9 !important
+}
+
+.imageChangeTrainingDisplay{
+  color:#d9d9d9 !important;
+  position: absolute;
+  top    : 2%;
+  right  : 8%;
+  font-size: 30px;
+}
+
+.trainingContent{
+  position: relative;
+}
+.imageTraining{
+  position: relative;
+  top:5px;
+}
+
+.textTraining{
+  position: relative;
+  top:5px;
+}
+
+
+.ionic_Calendar .calendar_Date .row.Daysheading {text-align:center;}
+.ionic_Calendar .txtCenter {text-align:center;}
+.ionic_Calendar .col.selMonth { background-color: #387ef5; color:white; }
+.ionic_Calendar .col.selDate {  background-color: #387ef5; color:white; }
+.ionic_Calendar .col.selYear { background-color: #387ef5; color:white;  }
+.ionic_Calendar .col.fadeDateDisp, .col.fadeYear { background-color: #E9E9E9; color:#D5D5D5 }
+.ionic_Calendar .DaysDisplay .col{ border: 1px solid #F3F3F3; padding-top: 10px; font-weight: bolder; height: 40px;}
+.ionic_Calendar .DaysDisplay.row{ padding-left: 0px; padding-right: 0px;}
+.ionic_Calendar .MonthsDisplay.row{ padding-left: 0px; padding-right: 0px; }
+.ionic_Calendar .MonthsDisplay .col{ border: 1px solid #F3F3F3; padding-top: 30px; font-size: 18px;  height: 80px;}
+.ionic_Calendar .YearsDisplay.row{ padding-left: 0px; padding-right: 0px; }
+.ionic_Calendar .YearsDisplay .col{ border: 1px solid #F3F3F3; padding-top: 30px; font-size: 18px; height: 80px;}
+.ionic_Calendar .marginTop0 { margin-top: 0px !important;}
+.ionic_Calendar .marginLeft0 { margin-left: 0px !important;}
+.ionic_Calendar .paddingBottom0 { padding-bottom: 0px !important;}
+.ionic_Calendar .Daysheading_Label .col { padding-bottom: 0px !important;}
+.ionic_Calendar .WeekDisplay.row{ padding-left: 0px; padding-right: 0px}
+.ionic_Calendar .WeekDisplay .col{   padding-top: 5px; font-size: 15px; height: 5em; white-space: nowrap;  }
+.ionic_Calendar .WeekContentBorder {border-bottom: 1px solid #555;}
+.ionic_Calendar .WeekContentBorderVertical {position: relative;}
+
+
+
+
+.ionic_Calendar .WeekContentBorderVertical:after {
+  content : "";
+  position: absolute;
+  right    : 0;
+  z-index: 100;
+  top  : 25%;
+  width  : 3px;
+  height   : 50%;  /* or 100px */
+  background: #555;
+}
+ .mainDiv {
+  height: 6px;
+  width: 6px;
+  background: #7caf37;
+  float:left;
+}
+
+.fullDayEvents{
+      font-size: 15px; height: 5em; white-space: nowrap;
+      top:0%;
+      position: relative;
+}
+
+
+.fullDayEvents:after{
+  content : "";
+  position: absolute;
+  z-index: 100;
+  top  : 0%;
+  left:15%;
+  width  : 70%;
+  height   : 2px;  /* or 100px */
+  background: #555;
+}
+.dayEvent{
+      text-align:center;
+}
+
+
+#slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}

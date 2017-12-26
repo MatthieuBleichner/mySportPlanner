@@ -1,0 +1,105 @@
+<ion-view  class = "myView">
+  <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-nav-title  class="title-activities">
+  Trainings
+</ion-nav-title>
+  <ion-content>
+      <div class="card ionic_Calendar">
+
+
+        <div>
+          <div class="imageChangeTrainingDisplay"><i class="ion-grid" ng-click="changeTrainingDisplay()" ></i></div>
+          <div class="trainingDate">
+            {{displayDate}}
+          </div>
+          <div class="trainingDay">
+            {{displayWeekDay}}
+          </div>
+          <div class="trainingMonth">
+            {{displayMonth}} , {{displayYear}}
+          </div>
+        </div>
+
+
+        <div class="calendar_Week swipe" ng-show="UICalendarDisplay.Week" on-swipe-left="selectedWeekNextClick()" on-swipe-right="selectedWeekPrevClick()">
+          <div class="row" style=" background-color: #3F3F3F;  color: white;">
+            <div class="col txtCenter" ><i class="icon ion-chevron-left" ng-click="selectedWeekPrevClick()"></i></div>
+            <div class="col col-75 txtCenter"> {{displayMonth}} - {{displayYear}}</div>
+            <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedWeekNextClick()"></i></div>
+          </div>
+          <div  class = "row WeekDisplay " ng-repeat = "day in weekDays track by $index"  ng-class="{'marginTop0':$first}"   style=" background-color: #f4f4f4">
+            <div class="col col-20 WeekContentBorderVertical WeekContentBorder" style="background-color: #f4f4f4">
+              <h4>{{day.dayString}}</h4>
+              <p>{{day.date}}</p>
+            </div>
+
+            <div class = "col txtCenter WeekContentBorder trainingContent" ng-repeat = "colVal in weekDaysEvents[$index]"  ng-click="selectedDateClick(colVal)"  style=" background-color: #f4f4f4">
+                <div  ng-click="gotoEditTraining(colVal.training.id)">
+                  <img src={{colVal.img}} class="sportpicsize imageTraining" ng-if= "colVal.img">
+                  <div class="textTraining">  {{colVal.duration   | minutes2Hours:' min'}} </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      	<div ng-show="UICalendarDisplay.Date" class="swipe" on-swipe-left="selectedMonthNextClick()" on-swipe-right="selectedMonthPrevClick()">
+          <div>
+              <div class="row fullDayEvents" >
+                <div class="col dayEvent" ng-repeat = "event in fullDayEvents" ng-click="gotoEditTraining(event.training.id)">
+                  <img style="position:relative; top:-10px" src={{event.img}} class="sportpicsize" ng-if= "event.img">
+                  <div  style="position:relative; top:-20px">  {{event.duration  | minutes2Hours:' min'}} </div>
+                </div>
+              </div>
+            </div>
+      		<div class="row" style=" background-color: #3F3F3F;  color: white;">
+      		  <div class="col txtCenter" ><i class="icon ion-chevron-left" ng-click="selectedMonthPrevClick()"></i></div>
+      		  <div class="col col-75 txtCenter">{{displayMonth}} {{displayYear}}</div>
+      		  <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedMonthNextClick()"></i></div>
+      		</div>
+      		<div class="row Daysheading Daysheading_Label" style="background-color: #383737; color: white;">
+      		  <div class="col">Su</div><div class="col">Mo</div><div class="col">Tu</div><div class="col">We</div><div class="col">Th</div><div class="col">Fr</div><div class="col">Sa</div>
+      		</div>
+      		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{'marginTop0':$first}">
+      		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{'fadeDateDisp':(colVal.type == 'oldMonth' || colVal.type == 'newMonth'), 'selDate':(colVal.date == displayDate && colVal.type == 'currentMonth')}"  ng-click="selectedDateClick(colVal)" >
+              {{colVal.date}}
+              <div ng-if="colVal.event.length>0" ng-class="{'marginLeft0':$first}">
+                  <div class ="mainDiv"></div>
+              </div>
+            </div>
+          </div>
+      	</div>
+      	</div>
+      	<div class="calendar_Month swipe" ng-show="UICalendarDisplay.Month"  on-swipe-left="selectedMonthYearNextClick()" on-swipe-right="selectedMonthYearPrevClick()">
+      		<div class="row" style=" background-color: #3F3F3F;  color: white;">
+      		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedMonthYearPrevClick()"></i></div>
+      		  <div class="col col-75 txtCenter" ng-click="UIdisplayMonthtoYear()">{{displayYear}}</div>
+      		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedMonthYearNextClick()"></i></div>
+      		</div>
+      		<div class="row txtCenter MonthsDisplay" ng-repeat = "rowVal in calMonths  track by $index" ng-class="{'marginTop0':$first}">
+      		  <div class="col" ng-repeat = "colVal in rowVal  track by $index"  ng-class="(colVal.name == shortMonth) ? 'selMonth' : 'NonSelMonth'"  ng-click="selectedMonthClick(colVal.id)" >
+              {{colVal.name}}
+            </div>
+      		</div>
+      	</div>
+      	<div class="calendar_Year" ng-show="UICalendarDisplay.Year">
+      		<div class="row" style=" background-color: #3F3F3F;  color: white;">
+      		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedDecadePrevClick()"></i></div>
+      		  <div class="col col-75 txtCenter">{{startYearDisp+1}}-{{endYearDisp-1}}</div>
+      		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedDecadeNextClick()"></i></div>
+      		</div>
+      		<div class="row txtCenter YearsDisplay" ng-repeat = "nx in []| rangecal:3" ng-class="{'marginTop0':$first}">
+      		  <div class="col" ng-repeat="n in [] | rangecal:4"  ng-class="{ 'fadeYear': (((startYearDisp+nx+nx+nx+nx+n) == startYearDisp)||((startYearDisp+nx+nx+nx+nx+n) == endYearDisp)), 'selYear': ((startYearDisp+nx+nx+nx+nx+n) == displayYear) }" ng-click="selectedYearClick((startYearDisp+nx+nx+nx+nx+n))">{{startYearDisp+nx+nx+nx+nx+n}}</div>
+      		</div>
+      	</div>
+      </div>
+  </ion-content>
+
+  <footer>
+    <button ion-fixed class="button button-float" ng-click="gotoEditTraining()">
+      <i class="icon ion-plus"></i>
+    </button>
+  </footer>
+
+</ion-view>

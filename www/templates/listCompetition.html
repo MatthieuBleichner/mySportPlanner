@@ -1,0 +1,41 @@
+<ion-view class = "myView">
+  <ion-nav-bar class="bar mainTitle bar-royal" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-nav-title class="title-activities">
+  Competitions
+</ion-nav-title>
+
+  <ion-content>
+    <div class="timeline">
+      <i class="icon ion-chevron-up moreCompetition" ng-click="displayMoreCompetition()"></i>
+      <i class="icon ion-chevron-up moreCompetition2" ng-click="displayMoreCompetition()"></i>
+      <div ng-repeat="item in itemsList">
+        <div>
+          <div class="container">
+            <div class="content" ng-click="gotoEdit(item.id)" >
+              {{item.title}}
+            </div>
+            <div class="dateContent">
+                <div class="bubble">
+                    <p>{{item.activityDate | date:'dd MMM'}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+
+
+
+
+
+
+<footer>
+  <button ion-fixed class="button button-float" ng-click="gotoEdit(item)">
+    <i class="icon ion-plus"></i>
+  </button>
+</footer>
+
+</ion-view>

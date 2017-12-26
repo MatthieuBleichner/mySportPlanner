@@ -1,0 +1,58 @@
+<ion-view view-title="Edit competition" class = "myView">
+  <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+
+<ion-nav-view  class="has-header">
+    <div class="list">
+
+      <div class="item item-divider">
+          Sport
+      </div>
+      <label class = "item item-input item-select">
+        <div class = "input-label">
+           Sport
+        </div>
+         <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(sportType)">
+         </select>
+      </label>
+      <div class="item item-divider">
+          Event name
+      </div>
+      <label class="item item-input">
+        <input type="text" placeholder="Title" ng-model="competitionForm.title">
+      </label>
+      <div class="item item-divider">
+        Date
+      </div>
+      <label class="item item-input">
+        <span>
+            <input type="date" ng-model="competitionForm.myDate" class="dayEvent">
+        </span>
+      </label>
+      <div class="item item-divider">
+        Time
+      </div>
+      <label class="item item-input">
+          <span>
+            <input type="time" ng-model="competitionForm.myDate">
+          </span>
+      </label>
+      <div class="item item-divider">
+          Extra comments
+      </div>
+      <label class="item item-input">
+        <textarea placeholder="Comments" ng-model="competitionForm.content"></textarea>
+      </label>
+
+    </div>
+
+    <button class="button button-center customBtnSave" ng-click="saveCompetition()">
+      Save
+    </button>
+    <button ng-show="competitionForm.id" class="button ng-hide button-center  customBtnDelete button-assertive" ng-click="confirmDelete(competitionForm.id)">
+      Delete
+    </button>
+
+  </ion-nav-view >
+</ion-view>
