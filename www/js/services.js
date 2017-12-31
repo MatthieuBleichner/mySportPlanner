@@ -1,5 +1,5 @@
 angular.module('starter.services', ['ngCordova'])
-  .factory('CompetitionDataService', function ($cordovaSQLite, $ionicPlatform) {
+  .factory('CompetitionDataService', function ($cordovaSQLite, $ionicPlatform, $cordovaLocalNotification) {
     var db, dbName = "competition107.db", trainingsCache, buildTrainingCache = true, sportsCache, buildSportCache = true, competitionsCache, buildCompetitionCache = true
 
     function useWebSql() {
@@ -311,6 +311,34 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         }
       },
 
+      addTrainingNotification: function( training ) {
+        var notifDate = moment( training.date );
+        notifDate.add( -1, 'd');
+        notifDate.set({hour:21,minute:00,second:0,millisecond:0})
+        var alarmTime = notifDate.toDate();
+        $ionicPlatform.ready(function() {
+          console.log("The notification has been set");
+          if( window.cordova && window.cordova.plugins.notification  ){
+            $cordovaLocalNotification.isScheduled(training.date.toISOString()).then(function(isScheduled) {
+          //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
+              if( isScheduled != true ){
+                $cordovaLocalNotification.add({
+                    id: training.date.toISOString(),
+                    firstAt: alarmTime,
+                    message: "Tomorrow : " + training.title + " " + training.duration + " min",
+                    title: "My sport planner",
+                    autoCancel: true,
+                    icon: 'icon',
+                    sound: null
+                }).then(function () {
+                      //    alert("addTrainingNotification ok");
+                    console.log("The notification has been set");
+                });
+              }
+            })
+          }
+        })
+      }
 
 
     }

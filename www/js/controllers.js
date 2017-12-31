@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 
   .controller('ListCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup) {
@@ -845,7 +845,12 @@ angular.module('starter.controllers', [])
       } else {
         CompetitionDataService.updateTraining($scope.trainingForm).then(onSaveSuccess)
       }
+      CompetitionDataService.addTrainingNotification($scope.trainingForm);
     }
+
+
+
+
 
 
     $scope.confirmDelete = function(idTraining) {
