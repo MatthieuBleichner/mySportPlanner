@@ -1,6 +1,6 @@
 angular.module('starter.services', ['ngCordova'])
   .factory('CompetitionDataService', function ($cordovaSQLite, $ionicPlatform, $cordovaLocalNotification) {
-    var db, dbName = "competition107.db", trainingsCache, buildTrainingCache = true, sportsCache, buildSportCache = true, competitionsCache, buildCompetitionCache = true
+    var db, dbName = "competition109.db", trainingsCache, buildTrainingCache = true, sportsCache, buildSportCache = true, competitionsCache, buildCompetitionCache = true
 
     function useWebSql() {
       db = window.openDatabase(dbName, "1.0", "Note database", 200000)
@@ -43,7 +43,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
 */
         initSportDB();
 
-      $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_TRAINING (id integer primary key, sport_id, duration, distance, trainingDate date, imgUrl, title)')
+      $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_TRAINING (id integer primary key, sport_id, duration, distance, trainingDate date, imgUrl, title, content)')
         .then(function(res){
         }, onErrorQuery)
     }
@@ -199,11 +199,11 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
       createTraining: function (training) {
       console.info('create training')
       buildTrainingCache = true;
-        return $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title) VALUES( ? , ? , ? , ? , ? , ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title]).then(function(res){
+        return $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]).then(function(res){
         }, onErrorQuery)
       },
       updateTraining: function(training){
-        return $cordovaSQLite.execute(db, 'UPDATE T_TRAINING set sport_id = ?, duration = ?, distance = ?, trainingDate = ?, imgUrl = ?, title = ? where id = ?', [training.sport_id, training.duration, training.distance, training.date, training.imgUrl, training.title, training.id])
+        return $cordovaSQLite.execute(db, 'UPDATE T_TRAINING set sport_id = ?, duration = ?, distance = ?, trainingDate = ?, imgUrl = ?, title = ?, content = ? where id = ?', [training.sport_id, training.duration, training.distance, training.date.toISOString(), training.imgUrl, training.title, training.content, training.id])
       },
       getAllTrainings: function(callback){
         if( true==buildTrainingCache || 'undefined'== trainingsCache){

@@ -798,6 +798,7 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.trainingForm.stepDistance  = 1;
         $scope.trainingForm.maxTime       = 120;
         $scope.trainingForm.stepTime      = 10;
+        $scope.trainingForm.conent      = "";
       }
     }
 
