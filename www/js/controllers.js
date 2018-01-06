@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
 
   .controller('ListCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup) {
@@ -220,7 +220,7 @@ angular.module('starter.controllers', ['ngCordova'])
       };
   })
 
-  .controller('listTrainingCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup) {
+  .controller('listTrainingCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup, Papa, $cordovaFile) {
     $scope.$on('$ionicView.enter', function(e) {
         CompetitionDataService.getAllTrainings(function(data){
           $scope.trainingList = data
@@ -247,6 +247,63 @@ angular.module('starter.controllers', ['ngCordova'])
       $state.go('trainingForm', {id: idTraining})
     }
 
+    $scope.importMarathon = function(){
+
+      var filePath = "trainingPlan/marathon.csv";
+      var date = new Date();
+      var startWeek = moment(date).week();
+      initialDate = moment(date).isoWeekday(1);
+      initialDate.startOf('isoweek');
+
+          function handleParseResult(result) {
+              var nbElem = result.data.length;
+              //do not parse first line
+              for(it=1;it<nbElem-1;it++){
+                //Semaine,jour,titre,durée,extra comments
+                //1,1,EF,45,footing de 45 minutes
+                var csvItem = result.data[it];
+                newTraining = {};
+                newTraining.sport_id = 1; //suppose this is a running event
+                newTraining.duration = csvItem[3];
+                newTraining.distance = -1;
+
+                selectedDate = new moment(initialDate).isoWeekday(1);
+                selectedDate.add(7*(parseInt(csvItem[0])-1 ) + parseInt(csvItem[1])-1,'day');
+
+                newTraining.date = selectedDate.toDate();
+                newTraining.date.setHours(9);
+                newTraining.date.setMinutes(30);
+                newTraining.date.setSeconds(0);
+                newTraining.date.setMilliseconds(0);
+                newTraining.imgUrl = "img/run.svg"
+                newTraining.title = "S" + csvItem[0] + " - " + csvItem[2];
+                newTraining.content = csvItem[4];
+
+                CompetitionDataService.createTraining(newTraining);
+                CompetitionDataService.addTrainingNotification(newTraining);
+              }
+
+
+          }
+
+          function handleParseError(result) {
+              // display error message to the user
+          }
+
+          function parsingFinished() {
+              // whatever needs to be done after the parsing has finished
+          }
+
+      Papa.parse(filePath, {
+        download: true,
+        header:false,
+        complete: function(results) {
+          data = results;
+        }
+      }).then(handleParseResult)
+      .catch(handleParseError)
+            .finally(parsingFinished)
+    }
 
     $ionicModal.fromTemplateUrl('templates/trainingModalForm.html',
     {
