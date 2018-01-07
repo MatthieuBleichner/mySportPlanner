@@ -1,8 +1,10 @@
-<ion-view view-title="Edit training" class = "myView">
+<ion-view class = "myView">
   <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
     <ion-nav-back-button></ion-nav-back-button>
   </ion-nav-bar>
-
+  <ion-nav-title  class="title-activities">
+    Edit training
+  </ion-nav-title>
 <ion-nav-view  class="has-header">
           <div class="list">
             <label class = "item item-input item-select">
@@ -55,7 +57,7 @@
             </label>
             <label class="item item-input">
               <span>
-                <input type="text" ng-model="trainingForm.title" style="text-align: center" class="col col-center" placeholder="Enter training name">
+                <input type="text" ng-model="trainingForm.title" placeholder="Enter training name">
               </span>
             </label>
             <label class="item item-divider">
@@ -63,7 +65,8 @@
             </label>
             <label class="item item-input">
               <span>
-                <input type="text" ng-model="trainingForm.content" placeholder="Enter extra content">
+                <textarea type="text" rows="5" ng-model="trainingForm.content" placeholder="Enter extra content">
+                </textarea>
               </span>
             </label>
           </div>
