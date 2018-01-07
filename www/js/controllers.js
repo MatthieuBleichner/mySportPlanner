@@ -833,8 +833,8 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.trainingForm.stepDistance  = $scope.sportList[item.sport_id-1].stepDistance;
           $scope.trainingForm.maxTime       = $scope.sportList[item.sport_id-1].maxTime;
           $scope.trainingForm.stepTime      = $scope.sportList[item.sport_id-1].stepTime;
-          $scope.trainingForm.distance      = $scope.trainingForm.maxDistance/2 ;
-          $scope.trainingForm.duration      = $scope.trainingForm.maxTime/2;
+          //$scope.trainingForm.distance      = $scope.trainingForm.maxDistance/2 ;
+          //$scope.trainingForm.duration      = $scope.trainingForm.maxTime/2;
         })
 
       } else {
