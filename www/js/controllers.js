@@ -244,7 +244,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
     $scope.gotoEditTraining = function(idTraining){
       $scope.sportType = 'running';
-      $state.go('trainingForm', {id: idTraining})
+      $state.go('trainingForm', {id: idTraining, date: new Date(selectedYear,selectedMonth,selectedDate)})
     }
 
     $scope.importMarathon = function(){
@@ -267,10 +267,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                 newTraining.duration = csvItem[3];
                 newTraining.distance = -1;
 
-                selectedDate = new moment(initialDate).isoWeekday(1);
-                selectedDate.add(7*(parseInt(csvItem[0])-1 ) + parseInt(csvItem[1])-1,'day');
+                eventDate = new moment(initialDate).isoWeekday(1);
+                eventDate.add(7*(parseInt(csvItem[0])-1 ) + parseInt(csvItem[1])-1,'day');
 
-                newTraining.date = selectedDate.toDate();
+                newTraining.date = eventDate.toDate();
                 newTraining.date.setHours(9);
                 newTraining.date.setMinutes(30);
                 newTraining.date.setSeconds(0);
@@ -839,11 +839,18 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
       } else {
         $scope.trainingForm = {};
-        $scope.trainingForm.date = new Date();
+        if($stateParams.date){
+          $scope.trainingForm.date = $stateParams.date;
+        }
+        else{
+          $scope.trainingForm.date = new Date();
+        }
+
         $scope.trainingForm.date.setHours(9);
         $scope.trainingForm.date.setMinutes(30);
         $scope.trainingForm.date.setSeconds(0);
         $scope.trainingForm.date.setMilliseconds(0);
+
         $scope.trainingForm.content="";
         $scope.trainingForm.distance=10;
         $scope.trainingForm.duration=60;

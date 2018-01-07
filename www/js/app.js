@@ -41,6 +41,7 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
       controller: 'TrainingFormCtrl',
       params: {
         id: {value: null},
+        date: {value:null},
       },
     })
 
