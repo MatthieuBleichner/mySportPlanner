@@ -45,14 +45,6 @@
 
         </div>
       	<div ng-show="UICalendarDisplay.Date" class="swipe" on-swipe-left="selectedMonthNextClick()" on-swipe-right="selectedMonthPrevClick()">
-          <div>
-              <div class="row fullDayEvents" >
-                <div class="col dayEvent" ng-repeat = "event in fullDayEvents" ng-click="gotoEditTraining(event.training.id)">
-                  <img style="position:relative; top:-10px" src={{event.img}} class="sportpicsize" ng-if= "event.img">
-                  <div  style="position:relative; top:-20px">  {{event.duration  | minutes2Hours:' min'}} </div>
-                </div>
-              </div>
-            </div>
       		<div class="row" style=" background-color: #3F3F3F;  color: white;">
       		  <div class="col txtCenter" ><i class="icon ion-chevron-left" ng-click="selectedMonthPrevClick()"></i></div>
       		  <div class="col col-75 txtCenter">{{displayMonth}} {{displayYear}}</div>
@@ -66,6 +58,16 @@
               {{colVal.date}}
               <div ng-if="colVal.event.length>0" ng-class="{'marginLeft0':$first}">
                   <div class ="mainDiv"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div ng-show="fullDayEvents.length" class="card WeekDisplay" >
+                <div class="row">
+                  <div class="col txtCenter trainingContent" ng-repeat = "event in fullDayEvents" ng-click="gotoEditTraining(event.training.id)">
+                  <img style="position:relative; top:-10px" src={{event.img}} class="sportpicsize imageTraining" ng-if= "event.img">
+                  <div  class="textTraining" style="position:relative; top:-20px">  {{event.duration  | minutes2Hours:' min'}} </div>
+                </div>
               </div>
             </div>
           </div>
