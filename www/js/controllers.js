@@ -42,10 +42,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       } else {
         $scope.trainingForm = {};
         $scope.trainingForm.date = new Date();
-        $scope.trainingForm.date.setHours(9);
-        $scope.trainingForm.date.setMinutes(30);
-        $scope.trainingForm.date.setSeconds(0);
-        currentDate.setMilliseconds(0);
         $scope.trainingForm.content="";
       }
     };
@@ -154,10 +150,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       } else {
         $scope.competitionForm = {};
         $scope.competitionForm.date = new Date();
-        $scope.competitionForm.date.setHours(9);
-        $scope.competitionForm.date.setMinutes(30);
-        $scope.competitionForm.date.setSeconds(0);
-        currentDate.setMilliseconds(0);
         $scope.competitionForm.content="";
       }
 
@@ -292,10 +284,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                 eventDate.add(7*(parseInt(csvItem[0])-1 ) + parseInt(csvItem[1])-1,'day');
 
                 newTraining.date = eventDate.toDate();
-                newTraining.date.setHours(9);
-                newTraining.date.setMinutes(30);
-                newTraining.date.setSeconds(0);
-                newTraining.date.setMilliseconds(0);
                 newTraining.imgUrl = "img/run.svg"
                 newTraining.title = "S" + csvItem[0] + " - " + csvItem[2];
                 newTraining.content = csvItem[4];
@@ -350,10 +338,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       } else {
         $scope.trainingForm = {};
         $scope.trainingForm.date = new Date();
-        $scope.trainingForm.date.setHours(9);
-        $scope.trainingForm.date.setMinutes(30);
-        $scope.trainingForm.date.setSeconds(0);
-        $scope.trainingForm.date.setMilliseconds(0);
         $scope.trainingForm.content="";
         $scope.trainingForm.distance=10;
         $scope.trainingForm.duration=60;
@@ -643,10 +627,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             $scope.getDayTrainingFromWeekDay = function(currentWeekDay, callback) {
               todayDate = currentWeekDay;
               currentDate = new Date(selectedYear, selectedMonth , todayDate);
-              currentDate.setHours(9);
-              currentDate.setMinutes(30);
-              currentDate.setSeconds(0);
-              currentDate.setMilliseconds(0);
               $scope.getDayTraining(currentDate, callback) ;
             }
 
@@ -654,7 +634,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
               listOfTrainingForThisDay = [];
               nextPos = 0;
 
-              trainings = $scope.trainingList.get( currentDay.getTime() );
+              trainings = $scope.trainingList.get( currentDay.toLocaleDateString() );
               if( trainings ){
                 for(trainingJt=0;trainingJt<trainings.length;trainingJt++)
                 {
@@ -685,10 +665,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                   date = fullDate.format('Do');
                   $scope.weekDays[dayIt] = {date,dayString};
                   realDate = fullDate.toDate();
-                  realDate.setHours(9);
-                  realDate.setMinutes(30);
-                  realDate.setSeconds(0);
-                  realDate.setMilliseconds(0);
                   dayEvents = [];
                   nextPos = 0;
                   var trainingsForThisDay;
@@ -755,10 +731,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       } else {
         $scope.competitionForm = {};
         $scope.competitionForm.myDate = new Date();
-        $scope.competitionForm.myDate.setHours(9);
-        $scope.competitionForm.myDate.setMinutes(30);
-        $scope.competitionForm.myDate.setSeconds(0);
-        $scope.competitionForm.myDate.setMilliseconds(0);
         $scope.competitionForm.sport_id = 1;
       }
     }
@@ -868,10 +840,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.trainingForm.date = new Date();
         }
 
-        $scope.trainingForm.date.setHours(9);
-        $scope.trainingForm.date.setMinutes(30);
-        $scope.trainingForm.date.setSeconds(0);
-        $scope.trainingForm.date.setMilliseconds(0);
 
         $scope.trainingForm.content="";
         $scope.trainingForm.distance=10;

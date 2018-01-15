@@ -218,7 +218,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
               var trainingMap = new Map();
               for(trainingIt=0;trainingIt<trainingData.length;trainingIt++)
               {
-                var key = new Date(trainingData[trainingIt].trainingDate).getTime();
+                var key = new Date(trainingData[trainingIt].trainingDate).toLocaleDateString();
                 var value = trainingMap.get( key ) ;
                 if( value ){
                   value.push( trainingData[trainingIt] );
