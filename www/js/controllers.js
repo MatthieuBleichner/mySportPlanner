@@ -202,13 +202,14 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
   .filter('filterDate', function($filter) {
       return function(input, format) {
 
+          var inputDate = new Date(input).toLocaleDateString();
           var today = new Date().toLocaleDateString();
           var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toLocaleDateString();
-          if( new Date(input).toLocaleDateString() == today )
+          if( inputDate == today )
           {
             return "Today";
           }
-          else if ( new Date(input).toLocaleDateString() == tomorrow ) {
+          else if ( inputDate == tomorrow ) {
             return "Tomorrow";
           }
           else{
