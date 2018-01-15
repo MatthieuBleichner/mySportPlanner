@@ -199,6 +199,26 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       };
   })
 
+  .filter('filterDate', function($filter) {
+      return function(input, format) {
+
+          var today = new Date().toLocaleDateString();
+          var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toLocaleDateString();
+          if( new Date(input).toLocaleDateString() == today )
+          {
+            return "Today";
+          }
+          else if ( new Date(input).toLocaleDateString() == tomorrow ) {
+            return "Tomorrow";
+          }
+          else{
+            return $filter('date')(new Date(input), format);
+          }
+
+          return input;
+      };
+  })
+
   .filter('minutes2Hours', function() {
       return function(input,format) {
         if( input=="" )

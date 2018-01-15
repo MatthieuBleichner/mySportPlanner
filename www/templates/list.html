@@ -21,7 +21,7 @@
           </ion-avatar>
           <div class="item-position" ng-click="gotoEditTraining(training.id )">
             <h2>{{training.title}}</h2>
-            <p>{{training.trainingDate | date:'dd MMMM yyyy'}}</p>
+            <p>{{training.trainingDate | filterDate:'dd MMMM yyyy'}}</p>
           </div>
         </ion-item>
       </ion-list>
