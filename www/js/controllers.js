@@ -575,7 +575,8 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                     } else {
                         endingDateLimit = calDaysForMonth[selectedMonth];
                     }
-                    startDay = new Date(selectedYear, selectedMonth, 1).getDay();
+                    startDay = new Date(selectedYear, selectedMonth, 1).getDay() ;
+                    startDay = ( startDay || 7 ) -1; //make week start on monday
 
                 $scope.displayYear = selectedYear;
                 $scope.displayMonth = calMonths[selectedMonth];
