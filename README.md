@@ -2,7 +2,7 @@
 sport planner (with ionic CLI3)
 
 
-My sport planner is a free app designed to plan all your triathlon trainings it has been built with ionic V1 and can be used with iphone or android phone.
+My sport planner is a free app designed to plan all your triathlon trainings it and can be used with iphone or android phone (not yet available in stores)
 
 ## Home
 
@@ -41,7 +41,9 @@ All events can be created or modified throw dedicated panel
 
 ![screenshot_2018-01-17-15-27-50](https://user-images.githubusercontent.com/7282437/35047792-4cfb58f2-fb9b-11e7-8a29-2046f3acc38d.png)
 
+## Technical note
 
+The app has been built using ionic V1
 
 
 
