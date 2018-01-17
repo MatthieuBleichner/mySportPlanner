@@ -37,10 +37,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       })
     }
 
-    $scope.showKeyboard = function($event) {
-      $scope.keyboardVisible = true;
-    }
-
   })
 
   .controller('listCompetitionCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicPopup) {
