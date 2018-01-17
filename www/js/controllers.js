@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
 
-  .controller('ListCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup) {
+  .controller('ListCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicPopup) {
     $scope.$on('$ionicView.enter', function(e) {
         CompetitionDataService.getNext3Competitions(function(data){
           $scope.itemsList = data
@@ -21,60 +21,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
     $scope.gotoEditTraining = function(idTraining){
       $state.go('trainingForm', {id: idTraining})
     }
-
-
-    $ionicModal.fromTemplateUrl('templates/trainingModalForm.html',
-    {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then( function( modal ) {
-      $scope.loginModal = modal;
-      console.info('ok');
-    });
-
-    $scope.openModalTrainingWithData = function(trainingID) {
-      $scope.loginModal.show();
-
-      if(trainingID){
-        CompetitionDataService.getTrainingById(trainingID, function(item){
-          $scope.trainingForm = item
-        })
-      } else {
-        $scope.trainingForm = {};
-        $scope.trainingForm.date = new Date();
-        $scope.trainingForm.content="";
-      }
-    };
-
-
-    $ionicModal.fromTemplateUrl('templates/competitionModalForm.html',
-    {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then( function( modal ) {
-      $scope.competitionModal = modal;
-      console.info('ok');
-    });
-
-    $scope.openModalCompetitionWithData = function(competition) {
-      console.info('openModalCompetitionWithData');
-      $scope.competitionModal.show();
-
-      $scope.sportType = 'triathlon';
-      if(competition){
-          $scope.competitionForm = competition;
-          $scope.competitionForm.date = new Date(competition.activityDate);
-
-          CompetitionDataService.getSportName($scope.competitionForm.sport_id, function(sportName){
-            $scope.sportType = sportName.name
-          })
-      } else {
-        $scope.competitionForm = {};
-        $scope.competitionForm.date = new Date();
-        $scope.competitionForm.content="";
-      }
-
-    };
 
 
     $scope.confirmDelete = function(idCompetition) {
@@ -97,7 +43,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
   })
 
-  .controller('listCompetitionCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup) {
+  .controller('listCompetitionCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicPopup) {
     $scope.$on('$ionicView.enter', function(e) {
         CompetitionDataService.getFutureCompetitions(function(data){
           $scope.itemsList = data
@@ -124,36 +70,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       })
 
     }
-
-
-    $ionicModal.fromTemplateUrl('templates/competitionModalForm.html',
-    {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then( function( modal ) {
-      $scope.competitionModal = modal;
-      console.info('ok');
-    });
-
-    $scope.openModalCompetitionWithData = function(competition) {
-      console.info('openModalCompetitionWithData');
-      $scope.competitionModal.show();
-
-      $scope.sportType = 'triathlon';
-      if(competition){
-          $scope.competitionForm = competition;
-          $scope.competitionForm.date = new Date(competition.activityDate);
-
-          CompetitionDataService.getSportName($scope.competitionForm.sport_id, function(sportName){
-            $scope.sportType = sportName.name
-          })
-      } else {
-        $scope.competitionForm = {};
-        $scope.competitionForm.date = new Date();
-        $scope.competitionForm.content="";
-      }
-
-    };
 
     $scope.confirmDelete = function(idCompetition) {
       var confirmPopup = $ionicPopup.confirm({
@@ -233,7 +149,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       };
   })
 
-  .controller('listTrainingCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicModal, $ionicPopup, Papa, $cordovaFile) {
+  .controller('listTrainingCtrl', function ($scope,$ionicPlatform, $state, CompetitionDataService, $ionicPopup, Papa, $cordovaFile) {
     $scope.$on('$ionicView.enter', function(e) {
         CompetitionDataService.getAllTrainings(function(data){
           $scope.trainingList = data
@@ -246,14 +162,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
     })
 
-    $scope.openTrainingList = function(){
-
-      $state.go('listCompetition');
-    }
-
-    $scope.gotoEdit = function(idNote){
-      $state.go('form', {id: idNote})
-    }
 
     $scope.gotoEditTraining = function(idTraining){
       $scope.sportType = 'running';
@@ -313,37 +221,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       .catch(handleParseError)
             .finally(parsingFinished)
     }
-
-    $ionicModal.fromTemplateUrl('templates/trainingModalForm.html',
-    {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then( function( modal ) {
-      $scope.loginModal = modal;
-      console.info('ok');
-    });
-
-    $scope.openModalTrainingWithData = function(training) {
-      console.info('openModalTrainingWithData');
-      $scope.loginModal.show();
-
-      $scope.sportType = $scope.sportList[0];
-      if(training){
-          $scope.trainingForm = training;
-          $scope.trainingForm.date = new Date(training.trainingDate);
-
-          CompetitionDataService.getSportName($scope.trainingForm.sport_id, function(sportName){
-            $scope.sportType = sportName
-          })
-      } else {
-        $scope.trainingForm = {};
-        $scope.trainingForm.date = new Date();
-        $scope.trainingForm.content="";
-        $scope.trainingForm.distance=10;
-        $scope.trainingForm.duration=60;
-      }
-
-    };
 
     $scope.confirmDelete = function(idTraining) {
       var confirmPopup = $ionicPopup.confirm({
@@ -862,9 +739,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       $scope.trainingForm.duration      = $scope.trainingForm.maxTime/2;
     }
 
-
-
-
     function onSaveSuccess(){
       //$state.go('list')
       $ionicHistory.goBack();
@@ -880,10 +754,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
     }
 
 
-
-
-
-
     $scope.confirmDelete = function(idTraining) {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Remove a training',
@@ -896,150 +766,5 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
         }
       })
     }
-
-  })
-
-
-  .controller('trainingModalFormCtrl', function ($scope, $stateParams, $ionicPopup, $state, CompetitionDataService, $ionicTabsDelegate, $timeout) {
-    $scope.$on('$ionicView.enter', function(e) {
-      initForm()
-
-    })
-
-    function initForm(){
-      if($stateParams.id){
-        CompetitionDataService.getTrainingById($stateParams.id, function(item){
-          $scope.trainingForm = item
-        })
-      } else {
-        $scope.trainingForm = {};
-        $scope.trainingForm.date = new Date();
-      }
-    }
-
-    $scope.sportChange = function(item) {
-      console.log("Sport is :", item.id);
-      $scope.trainingForm.sport_id = item.id;
-      $scope.trainingForm.title = item.name;
-      CompetitionDataService.getSportImgUrl(item.id, function(imgUrl){
-        $scope.trainingForm.imgUrl  = imgUrl.logoURL
-      })
-    }
-
-    function onSaveSuccess(){
-      $state.go('list');
-    }
-
-      $scope.saveTraining = function(){
-
-        if(!$scope.trainingForm.id){
-          CompetitionDataService.createTraining($scope.trainingForm).then(onSaveSuccess)
-        } else {
-          CompetitionDataService.updateTraining($scope.trainingForm).then(onSaveSuccess)
-        }
-      }
-        $scope.closeModal = function() {
-          $ionicTabsDelegate.select(0); //by pass pour avoir la premiere tab sélectionnée par defaut
-          $scope.loginModal.hide();
-        };
-
-        $scope.saveModal = function() {
-          $scope.saveTraining();
-          $ionicTabsDelegate.select(0); //by pass pour avoir la premiere tab sélectionnée par defaut
-          CompetitionDataService.getAllTrainings(function(data){
-            $scope.itemsList = data
-          })
-
-          $scope.loginModal.hide();
-          $state.reload();
-        };
-  })
-
-
-  .controller('competitionModalFormCtrl', function ($scope, $stateParams, $ionicPopup, $state, CompetitionDataService, $ionicTabsDelegate, $timeout) {
-    $scope.$on('$ionicView.enter', function(e) {
-      $ionicTabsDelegate.select(1);
-    })
-
-    $scope.sportChange = function(item) {
-      console.log("Sport is :", item.id);
-      $scope.competitionForm.sport_id = item.id;
-      CompetitionDataService.getSportImgUrl(item.id, function(imgUrl){
-        $scope.competitionForm.imgUrl  = imgUrl.logoURL
-      })
-
-/*
-      CompetitionDataService.getAll(function(data){
-        $scope.itemsList = data
-      })*/
-
-        $timeout(function(){
-        $ionicTabsDelegate.select(1);
-      }, 700);
-
-    }
-
-    $scope.numbers = '';
-    $scope.keyboardVisible = true;
-  	$scope.keyboardSettings = {
-  		action: function(number) {
-        $scope.numbers += number
-  		},
-      leftButton: {
-			html: '<i class="icon ion-backspace"></i>',
-			action: function() {
-				$scope.numbers = $scope.numbers.slice(0, -1);
-			}
-		},
-		rightButton: {
-			html: '<i class="icon ion-checkmark-circled"></i>',
-			action: function() {
-				// Submit stuff
-        $scope.competitionForm.distance = $scope.number;
-        $timeout(function(){
-        $ionicTabsDelegate.select(2);
-      }, 700);
-			}
-		}
-
-  	}
-
-    function onSaveSuccess(){
-      $state.go('list');
-    }
-
-    $scope.saveCompetition = function(){
-
-      if(!$scope.competitionForm.id){
-        CompetitionDataService.createCompetition($scope.competitionForm)
-      } else {
-        CompetitionDataService.updateCompetition($scope.competitionForm)
-      }
-
-      $scope.competitionForm.activityDate = new Date( $scope.competitionForm.date )
-
-      onSaveSuccess();
-
-    }
-
-
-
-    $scope.closeModal = function() {
-      $ionicTabsDelegate.select(0); //by pass pour avoir la premiere tab sélectionnée par defaut
-      $scope.competitionModal.hide();
-    };
-
-    $scope.saveModal = function() {
-      $scope.saveCompetition();
-      $ionicTabsDelegate.select(0); //by pass pour avoir la premiere tab sélectionnée par defaut
-      CompetitionDataService.getAll(function(data){
-        $scope.itemsList = data
-      })
-
-      $scope.competitionModal.hide();
-      $state.reload();
-    };
-
-
 
   })

@@ -45,23 +45,6 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
       },
     })
 
-    .state('competitionModalForm', {
-      url: '/competitionModalForm/{id}',
-      templateUrl: 'templates/competitionModalForm.html',
-      controller: 'competitionModalFormCtrl',
-      params: {
-        id: {value: null},
-      },
-    })
-
-    .state('trainingModalForm', {
-      url: '/trainingModalForm/{id}',
-      templateUrl: 'templates/trainingModalForm.html',
-      controller: 'trainingModalFormCtrl',
-      params: {
-        id: {value: null},
-      },
-    })
 
     .state('listTraining', {
       url: '/listTraining',
