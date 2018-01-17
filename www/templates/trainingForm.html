@@ -74,7 +74,7 @@
           <button ion-fixed class="button button-float" ng-click="saveTraining()">
             <i class="icon ion-checkmark-round"></i>
           </button>
-          <button ion-fixed class="button button-float-left button-assertive" style="background" ng-click="confirmDelete(trainingForm.id)">
+          <button ng-if="trainingForm.id" ion-fixed class="button button-float-left button-assertive" style="background" ng-click="confirmDelete(trainingForm.id)">
             <i class="icon ion-trash-b"></i>
           </button>
         </footer>
