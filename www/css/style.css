@@ -121,11 +121,19 @@
   margin-bottom: 6px;
 }
 
+.platform-ios.platform-cordova:not(.fullscreen) .txt-title {
+    transform:translateY(-8px);
+}
+
 .img-title {
   display: block;
   line-height: .7em;
   font-size: 18px;
   margin: 3px 0;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .img-title {
+    transform:translateY(-8px);
 }
 
 .has-header {

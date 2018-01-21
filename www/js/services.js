@@ -317,8 +317,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         notifDate.set({hour:21,minute:00,second:0,millisecond:0})
         var alarmTime = notifDate.toDate();
         $ionicPlatform.ready(function() {
-          console.log("The notification has been set");
-          if( window.cordova && window.cordova.plugins.notification  ){
+          if( window.cordova && window.cordova.plugins.notification && !ionic.Platform.isIOS() ){
             $cordovaLocalNotification.isScheduled(training.date.toISOString()).then(function(isScheduled) {
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
               if( isScheduled != true ){
