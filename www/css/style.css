@@ -425,6 +425,15 @@
 }
 
 
+.my-alert .okType{
+  background: #7caf37;
+}
+
+.checkBoxRepeat input:checked + .checkbox-icon:before {
+background: #7caf37;
+border-color: #7caf37;
+}
+
 .ionic_Calendar .calendar_Date .row.Daysheading {text-align:center;}
 .ionic_Calendar .txtCenter {text-align:center;}
 .ionic_Calendar .col.selMonth { background-color: #387ef5; color:white; }

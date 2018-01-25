@@ -700,6 +700,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.sportType = dataSports[0];
           $scope.sportChange( dataSports[0] );
           $scope.trainingForm.content="";
+          $scope.trainingForm.repeat=false;
 
         }
       })
@@ -741,12 +742,38 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
     }
     $scope.saveTraining = function(){
 
+
       if(!$scope.trainingForm.id){
-        CompetitionDataService.createTraining($scope.trainingForm).then(onSaveSuccess)
+        CompetitionDataService.createTraining($scope.trainingForm);
+        CompetitionDataService.addTrainingNotification($scope.trainingForm);
       } else {
-        CompetitionDataService.updateTraining($scope.trainingForm).then(onSaveSuccess)
+        CompetitionDataService.updateTraining($scope.trainingForm)
       }
-      CompetitionDataService.addTrainingNotification($scope.trainingForm);
+
+      if($scope.trainingForm.repeat==true){
+          var confirmPopup = $ionicPopup.confirm({
+            title: 'Repeat training',
+            template: 'Are you sure you want to repeat this event all weeks?'//,
+          //  okType: "my-alertOkType",
+
+          })
+
+          confirmPopup.then(function(res) {
+            if(res) {
+              //only update for next 6 monthes
+              for(it=1;it<26;it++){
+                var nextTraining = $scope.trainingForm;
+                var nextDate = moment($scope.trainingForm.date).add(1,'w');
+                nextTraining.date = nextDate.toDate();
+                CompetitionDataService.createTraining(nextTraining);
+                CompetitionDataService.addTrainingNotification(nextTraining);
+              }
+            }
+          })
+      }
+
+      onSaveSuccess();
+
     }
 
 

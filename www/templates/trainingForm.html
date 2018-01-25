@@ -52,7 +52,12 @@
               <span>
                   <input type="date" ng-model="trainingForm.date" class="dayEvent">
               </span>
+
+
             </label>
+
+              <ion-checkbox ng-if="!trainingForm.id" class="checkBoxRepeat"
+              ng-model="trainingForm.repeat" ng-checked="trainingForm.repeat"> Repeat all weeks</ion-checkbox>
             <label class="item item-divider">
               name
             </label>
