@@ -428,6 +428,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                     selectedYear = mnthDate.getFullYear();
                     $scope.displayMonthCalendar();
                 }
+                if(date.month != undefined){
+                  selectedMonth = date.month;
+                  $scope.displayMonth = calMonths[selectedMonth];
+                }
                 $scope.displayCompleteDate();
 
                 $scope.fullDayEvents = date.event;
@@ -548,7 +552,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                     $scope.weekDaysEvents [dayIt] = trainingsForThisDay;
                   }
                   else{
-                      $scope.weekDaysEvents [dayIt][0] = {"img" : "" ,"duration":"","date":fullDate.format('DD'),"id":""};
+                      $scope.weekDaysEvents [dayIt][0] = {"month":fullDate.month(), "img" : "" ,"duration":"","date":fullDate.format('DD'),"id":""};
                   }
                   fullDate = dayOfWeek.add( 1, 'd' );
 
