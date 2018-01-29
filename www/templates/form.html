@@ -52,11 +52,11 @@
 
   </ion-nav-view >
 
-  <footer>
+  <footer  class="hide-on-keyboard-open">
     <button ion-fixed class="button button-float" ng-click="saveCompetition()">
       <i class="icon ion-checkmark-round"></i>
     </button>
-    <button ion-fixed class="button button-float-left button-assertive" style="background" ng-click="confirmDelete(competitionForm.id)">
+    <button ng-if="competitionForm.id" ion-fixed class="button button-float-left button-assertive" style="background" ng-click="confirmDelete(competitionForm.id)">
       <i class="icon ion-trash-b"></i>
     </button>
   </footer>
