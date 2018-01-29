@@ -63,14 +63,14 @@
             </label>
             <label class="item item-input">
               <span>
-                <input type="text" ng-model="trainingForm.title" placeholder="Enter training name">
+                <input type="text" ng-model="trainingForm.title" ng-keyup="hideKeyBoard($event)" placeholder="Enter training name">
               </span>
             </label>
             <label class="item item-divider">
               extra comments
             </label>
             <label class="item item-input">
-                <textarea rows="4" ng-model="trainingForm.content" placeholder="Enter extra content">
+                <textarea rows="4" ng-model="trainingForm.content" ng-keyup="hideKeyBoard($event)" placeholder="Enter extra content">
                 </textarea>
             </label>
           </div>

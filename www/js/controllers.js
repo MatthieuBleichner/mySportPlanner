@@ -782,6 +782,12 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
     }
 
 
+    $scope.hideKeyBoard = function( e ) {
+      if( cordova.plugins.Keyboard && e.key=="Enter"){
+        cordova.plugins.Keyboard.close();
+      }
+    }
+
     $scope.confirmDelete = function(idTraining) {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Remove a training',
