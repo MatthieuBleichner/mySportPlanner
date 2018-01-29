@@ -686,6 +686,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             $scope.trainingForm.stepTime      = $scope.sportList[item.sport_id-1].stepTime;
             //$scope.trainingForm.distance      = $scope.trainingForm.maxDistance/2 ;
             //$scope.trainingForm.duration      = $scope.trainingForm.maxTime/2;
+                  $scope.show = true; //by pass, pour pas que l'affichage blink
           })
 
         } else {
@@ -701,7 +702,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.sportChange( dataSports[0] );
           $scope.trainingForm.content="";
           $scope.trainingForm.repeat=false;
-
+          $scope.show = true; //by pass, pour pas que l'affichage blink
         }
       })
     }
