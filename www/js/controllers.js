@@ -796,6 +796,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
       confirmPopup.then(function(res) {
         if(res) {
+          CompetitionDataService.deleteTrainingNotification($scope.trainingForm);
           CompetitionDataService.deleteTraining(idTraining).then(onSaveSuccess)
         }
       })

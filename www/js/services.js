@@ -319,11 +319,12 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         var alarmTime = notifDate.toDate();
         $ionicPlatform.ready(function() {
           if( window.cordova && window.cordova.plugins.notification && !ionic.Platform.isIOS() ){
-            $cordovaLocalNotification.isScheduled(training.date.toISOString()).then(function(isScheduled) {
+            var notifID = training.date.getTime();
+            $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
               if( isScheduled != true ){
                 $cordovaLocalNotification.add({
-                    id: training.date.toISOString(),
+                    id: notifID,
                     firstAt: alarmTime,
                     message: "Tomorrow : " + training.title + " " + training.duration + " min",
                     title: "My sport planner",
@@ -331,15 +332,37 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
                     icon: 'icon',
                     sound: null
                 }).then(function () {
-                      //    alert("addTrainingNotification ok");
+                  //  alert("addTrainingNotification ok");
                     console.log("The notification has been set");
                 });
+              }else {
+                console.log("addTrainingNotification notification already exist");
+              //  alert("addTrainingNotification notification already exist");
+              }
+            })
+          }
+        })
+      },
+
+      deleteTrainingNotification: function( training ) {
+        $ionicPlatform.ready(function() {
+          if( window.cordova && window.cordova.plugins.notification && !ionic.Platform.isIOS() ){
+            var notifID = training.date.getTime();
+            $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
+          //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
+              if( isScheduled == true ){
+                $cordovaLocalNotification.clear(notifID).then(function () {
+                  //  alert("addTrainingNotification ok");
+                    console.log("The notification has been deleted");
+                });
+              }else {
+                console.log("this notification doesn't exist");
+              //  alert("addTrainingNotification notification already exist");
               }
             })
           }
         })
       }
-
 
     }
   })
