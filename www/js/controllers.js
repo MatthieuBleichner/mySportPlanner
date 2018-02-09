@@ -702,6 +702,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             $scope.trainingForm.date = new Date();
           }
 
+          $scope.trainingForm.date.setHours(12,0,0); //avoid potential issues with local time when hours is 00.00
+
+
           $scope.sportType = dataSports[0];
           $scope.sportChange( dataSports[0] );
           $scope.trainingForm.content="";

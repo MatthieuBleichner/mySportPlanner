@@ -242,7 +242,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
       getNext3Trainings: function(callback){
         $ionicPlatform.ready(function () {
           //< '2013-01-01 00:00:00'
-          $cordovaSQLite.execute(db, 'SELECT * FROM T_TRAINING WHERE DATE(trainingDate)>=DATE("now") ORDER BY DATE(trainingDate) asc LIMIT 3').then(function (results) {
+          $cordovaSQLite.execute(db, 'SELECT * FROM T_TRAINING WHERE DATE(trainingDate,"localtime")>=DATE("now") ORDER BY DATE(trainingDate) asc LIMIT 3').then(function (results) {
             var trainingData = []
 
             for (i = 0, max = results.rows.length; i < max; i++) {
