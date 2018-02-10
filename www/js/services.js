@@ -204,6 +204,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         }, onErrorQuery)
       },
       updateTraining: function(training){
+        buildTrainingCache = true;
         return $cordovaSQLite.execute(db, 'UPDATE T_TRAINING set sport_id = ?, duration = ?, distance = ?, trainingDate = ?, imgUrl = ?, title = ?, content = ? where id = ?', [training.sport_id, training.duration, training.distance, training.date.toISOString(), training.imgUrl, training.title, training.content, training.id])
       },
       getAllTrainings: function(callback){
@@ -318,7 +319,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         notifDate.set({hour:21,minute:00,second:0,millisecond:0})
         var alarmTime = notifDate.toDate();
         $ionicPlatform.ready(function() {
-          if( window.cordova && window.cordova.plugins.notification && !ionic.Platform.isIOS() ){
+          if( window.cordova && window.cordova.plugins.notification ){
             var notifID = training.date.getTime();
             $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
@@ -346,7 +347,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
 
       deleteTrainingNotification: function( training ) {
         $ionicPlatform.ready(function() {
-          if( window.cordova && window.cordova.plugins.notification && !ionic.Platform.isIOS() ){
+          if( window.cordova && window.cordova.plugins.notification ){
             var notifID = training.date.getTime();
             $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
