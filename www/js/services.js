@@ -197,11 +197,14 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
       },
 
       //TRainings
-      createTraining: function (training) {
+      createTraining: function (training, callback) {
       console.info('create training')
       buildTrainingCache = true;
-        return $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]).then(function(res){
+        $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]).then(function(res){
+          callback( res.insertId );
         }, onErrorQuery)
+
+        return insertId;
       },
       updateTraining: function(training){
         buildTrainingCache = true;
@@ -313,49 +316,144 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         }
       },
 
-      addTrainingNotification: function( training ) {
+      addTrainingNotification: function( training , trainingId) {
         var notifDate = moment( training.date );
         notifDate.add( -1, 'd');
         notifDate.set({hour:21,minute:00,second:0,millisecond:0})
+
         var alarmTime = notifDate.toDate();
         $ionicPlatform.ready(function() {
           if( window.cordova && window.cordova.plugins.notification ){
             var notifID = training.date.getTime();
+
             $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
               if( isScheduled != true ){
-                $cordovaLocalNotification.add({
+                console.log("The notification not scheduled yet");
+                jsonData = {};
+
+                jsonData[trainingId] = { "trainingName" : training.title , "trainingDuration" : training.duration };
+
+                $cordovaLocalNotification.schedule({
                     id: notifID,
                     firstAt: alarmTime,
-                    message: "Tomorrow : " + training.title + " " + training.duration + " min",
+                    text: "Tomorrow : " + training.title + " " + training.duration + " min",
                     title: "My sport planner",
                     autoCancel: true,
                     icon: 'icon',
-                    sound: null
+                    sound: null,
+                    data: jsonData
                 }).then(function () {
                   //  alert("addTrainingNotification ok");
                     console.log("The notification has been set");
                 });
               }else {
-                console.log("addTrainingNotification notification already exist");
-              //  alert("addTrainingNotification notification already exist");
-              }
-            })
+                console.log("The notification is already scheduled => update it");
+                //Bypass because getScheduled( notifID ); doesn't return anything, then get all scheduled and find current one
+                 $cordovaLocalNotification.getAllScheduled(  ).then(
+                   function( res ) {
+                    var jsonData = {};
+                    for (var i = 0;i<res.length;i++) {
+                      notif = res[i];
+                      if (notif.id == notifID ) {
+                        jsonData = JSON.parse(notif.data) ;
+                        break;
+                      }
+                    }
+
+                    newText = "Tommorow : " ;
+                    varthis = this;
+
+                    jsonData[trainingId] = { "trainingName" : training.title , "trainingDuration" : training.duration };
+
+                    var it = 0;
+                    for(var key in jsonData)
+                    {
+                      if( it> 0 ){
+                        newText += ", "
+                      }
+                      var jsonTraining = jsonData[key];
+                      newText = newText + jsonTraining["trainingName"] + " " + jsonTraining["trainingDuration"] + " min"
+                      it++;
+                    }
+
+                    $cordovaLocalNotification.update({
+                      id: notifID,
+                      text: newText,
+                      data: jsonData
+                    })
+                    console.log("notification has been updated");
+
+
+                    //  alert("addTrainingNotification notification already exist");
+                }).catch(
+                      // Promesse rejetée
+                      function() {
+                        console.log("addTrainingNotification notification failed");
+                }).finally(                     // On affiche un message avec la valeur
+
+            )
           }
         })
+      }
+    })
       },
 
       deleteTrainingNotification: function( training ) {
         $ionicPlatform.ready(function() {
           if( window.cordova && window.cordova.plugins.notification ){
             var notifID = training.date.getTime();
+
+
             $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
               if( isScheduled == true ){
-                $cordovaLocalNotification.clear(notifID).then(function () {
-                  //  alert("addTrainingNotification ok");
-                    console.log("The notification has been deleted");
-                });
+                console.log("The notification has been found => delete it");
+                //Bypass because getScheduled( notifID ); doesn't return anything, then get all scheduled and find current one
+                $cordovaLocalNotification.getAllScheduled(  ).then(
+                  function( res ) {
+                   var jsonData = {};
+                   for (var i = 0;i<res.length;i++) {
+                     notif = res[i];
+                     if (notif.id == notifID ) {
+                       jsonData = JSON.parse(notif.data) ;
+                       break;
+                     }
+                   }
+
+                newText = "Tommorow : " ;
+
+                if(Object.keys(jsonData).length > 1)
+                {
+                  delete jsonData[training.id];
+
+                  var it = 0;
+                  for(var key in jsonData)
+                  {
+                    if( it> 0 ){
+                      newText += ", "
+                    }
+                    var jsonTraining = jsonData[key];
+                    newText = newText + jsonTraining["trainingName"] + " " + jsonTraining["trainingDuration"] + " min"
+                    it++;
+                  }
+
+                  $cordovaLocalNotification.update({
+                    id: notifID,
+                    text: newText,
+                    data: jsonData
+                  })
+                  console.log("Exisiting notification has been updated");
+                }
+                else {
+                  $cordovaLocalNotification.cancel(notifID).then(function () {
+                    //  alert("addTrainingNotification ok");
+                      console.log("The notification has been deleted");
+                  });
+                }
+              })
+
+
               }else {
                 console.log("this notification doesn't exist");
               //  alert("addTrainingNotification notification already exist");

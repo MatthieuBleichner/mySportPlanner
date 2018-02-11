@@ -752,8 +752,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
 
       if(!$scope.trainingForm.id){
-        CompetitionDataService.createTraining($scope.trainingForm);
-        CompetitionDataService.addTrainingNotification($scope.trainingForm);
+          CompetitionDataService.createTraining($scope.trainingForm, function (trainingId){
+            CompetitionDataService.addTrainingNotification($scope.trainingForm, trainingId);
+        });
       } else {
         CompetitionDataService.updateTraining($scope.trainingForm)
       }
@@ -773,8 +774,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                 var nextTraining = $scope.trainingForm;
                 var nextDate = moment($scope.trainingForm.date).add(1,'w');
                 nextTraining.date = nextDate.toDate();
-                CompetitionDataService.createTraining(nextTraining);
-                CompetitionDataService.addTrainingNotification(nextTraining);
+                CompetitionDataService.createTraining(nextTraining , function (trainingId){
+                  CompetitionDataService.addTrainingNotification(nextTraining, trainingId);
+                });
               }
             }
           })
