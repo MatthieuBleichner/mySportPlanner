@@ -204,7 +204,6 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
           callback( res.insertId );
         }, onErrorQuery)
 
-        return insertId;
       },
       updateTraining: function(training){
         buildTrainingCache = true;
@@ -318,12 +317,13 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
 
       addTrainingNotification: function( training , trainingId) {
         var notifDate = moment( training.date );
+        var today = moment();
         notifDate.add( -1, 'd');
         notifDate.set({hour:21,minute:00,second:0,millisecond:0})
 
         var alarmTime = notifDate.toDate();
         $ionicPlatform.ready(function() {
-          if( window.cordova && window.cordova.plugins.notification ){
+          if( window.cordova && window.cordova.plugins.notification && notifDate > today){
             var notifID = training.date.getTime();
 
             $cordovaLocalNotification.isScheduled(notifID).then(function(isScheduled) {
@@ -386,13 +386,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
 
 
                     //  alert("addTrainingNotification notification already exist");
-                }).catch(
-                      // Promesse rejetée
-                      function() {
-                        console.log("addTrainingNotification notification failed");
-                }).finally(                     // On affiche un message avec la valeur
-
-            )
+                })
           }
         })
       }
