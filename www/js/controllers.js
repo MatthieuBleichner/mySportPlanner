@@ -534,55 +534,6 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.currentPlan.sport_id  = item.id;
         })
       }
-
-      $scope.start = function( endDate ){
-        var date = moment( endDate );
-        var nbWeek = $scope.planCreationPerWeek.length;
-        initialDate = moment(date).add( - (nbWeek-1), 'w').isoWeekday(1);
-        initialDate.startOf('isoweek');
-
-        for(it=0;it<nbWeek;it++){
-          var nbTraining = $scope.planCreationPerWeek[it].length;
-
-          var weekDayTraining=[];
-          if( nbTraining == 1){
-            weekDayTraining=[6];
-          }
-          else if( nbTraining == 2){
-            weekDayTraining=[4,6];
-          }
-          else if( nbTraining == 3){
-            weekDayTraining=[2,4,6];
-          }
-          else if( nbTraining == 4){
-            weekDayTraining=[2,4,6,7];
-          }
-          else if( nbTraining == 5){
-              weekDayTraining=[2,3,4,6,7];
-          }
-          else {
-            for(jt=0;jt<nbTraining;jt++)
-            {
-              weekDayTraining.push(3);
-            }
-          }
-
-          for(jt=0;jt<nbTraining;jt++)
-          {
-            var training = $scope.planCreationPerWeek[it][jt];
-            eventDate = new moment(initialDate).isoWeekday(1);
-            eventDate.add(7*(parseInt(it) ) + parseInt( weekDayTraining[jt] -1 ),'day');
-
-            training.date = eventDate.toDate();
-            CompetitionDataService.createTraining(training , function (trainingId){
-              CompetitionDataService.addTrainingNotification(training, trainingId);
-            });
-          }
-        }
-        $scope.modalImportPlan.hide();
-        $state.go('list');
-      }
-
   })
 
 
