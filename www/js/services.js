@@ -57,7 +57,6 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
           .then(function(res){
           }, onErrorQuery)
 
-        initTrainingPlanDB();
 
       //  $cordovaSQLite.execute(db, 'DROP TABLE T_TRAINING');
       $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_TRAINING (id integer primary key, sport_id, duration, distance, trainingDate date, imgUrl, title, content)')
