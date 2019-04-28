@@ -52,7 +52,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
   .controller('PlanCtrl', function ($scope,$stateParams,$ionicPlatform, $state, CompetitionDataService, Papa, $cordovaFile, $ionicModal, $ionicPopup) {
     $scope.$on('$ionicView.enter', function(e) {
-
+      $scope.endDate = new Date();
 
       if($stateParams.planData){
               $scope.currentPlan= $stateParams.planData;
