@@ -1,0 +1,30 @@
+    <ion-modal-view class = "modalView">
+      <div class="modalTitleContainer">
+        <div class="modalTitle">
+                TRAINING
+                  PLAN
+          <span class="img-title"><img src="img/all_white.svg"  height="15" ></img></span>
+        </div>
+      </div>
+      <div class="item item-divider center-text">
+        Training plan's name
+      </div>
+      <label class="item">
+        <span>
+            {{currentPlan.name}}
+        </span>
+      </label>
+      <div class="item item-divider center-text">
+        Training duration
+      </div>
+      <label class="item">
+        <span>
+            {{planCreationPerWeek.length}} weeks
+        </span>
+      </label>
+      <ion-item>
+        <a class="button button-block customBtnInList" ng-disabled="disableSaveButton" ng-click="saveTrainingPlan( currentPlan.name )" >
+          Save
+        </a>
+      </ion-item>
+    </ion-modal-view>

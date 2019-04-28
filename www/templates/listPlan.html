@@ -1,0 +1,23 @@
+<ion-view class = "myView">
+  <ion-nav-bar class="bar mainTitle bar-royal" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-title>
+        Training plan
+    </ion-nav-title>
+  </ion-nav-bar>
+
+
+  <ion-content>
+    <div class="card custom-card background-image">
+        <ion-item ng-repeat="plan in availablesPlanList">
+          <ion-avatar>
+            <img src={{plan.imgUrl}} class="sportpicsize"  >
+          </ion-avatar>
+          <div class="item-position" ng-click="gotoDisplayPlan( plan )">
+            <h2>{{plan.name}}</h2>
+            <p>{{plan.occurence}} times a week / {{plan.weekDuration}} weeks </p>
+          </div>
+        </ion-item>
+    </div>
+  </ion-content>
+</ion-view>

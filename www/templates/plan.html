@@ -1,0 +1,35 @@
+<ion-view class = "myView">
+  <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-title>
+        Edit plan
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <ion-content>
+
+      <div class="card custom-card background-image">
+        <div ng-repeat="it in planCreationPerWeek">
+          <div class="item item-divider center-text">
+            S{{$index+1}}
+          </div>
+          <ion-item ng-repeat="jt in planCreationPerWeek[$index]">
+            <div class> {{jt.title}} </div>
+          </ion-item>
+        </div>
+      </div>
+
+  </ion-content>
+
+        <footer class="hide-on-keyboard-open">
+          <button ion-fixed class="button button-float" ng-click="importTraining()">
+            <i class="icon ion-archive"></i>
+          </button>
+          <button ion-fixed class="button button-float-top button-assertive" style="background" ng-click="confirmDeletePlan( currentPlan )">
+            <i class="icon ion-trash-b"></i>
+          </button>
+          <button ion-fixed class="button button-float-topx2" ng-click="gotoEditPlan( currentPlan.id )">
+            <i class="icon ion-edit"></i>
+          </button>
+        </footer>
+</ion-view>

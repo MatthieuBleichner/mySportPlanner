@@ -1,0 +1,79 @@
+<ion-view class = "myView">
+  <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
+    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-title>
+        Edit plan
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <ion-content>
+      <div ng-show="planDisplay.plan" class="card custom-card background-image">
+        <div ng-repeat="it in planCreationPerWeek">
+          <div class="item item-divider center-text">
+            S{{$index+1}}
+          </div>
+          <ion-item ng-repeat="jt in planCreationPerWeek[$index]">
+            <div class> {{jt.title}} </div>
+          </ion-item>
+        </div>
+      </div>
+
+      <div ng-show="planDisplay.planCreation" class="card custom-card background-image">
+        <div ng-if="!planDisplay.isEditing" class="item item-divider center-text">
+          Training plan's name
+        </div>
+        <label class="item item-input" ng-if="!planDisplay.isEditing">
+          <span>
+              <input type="text" ng-model="currentPlan.name" placeholder="Enter training name" ng-change="trainingPlanNameChanged( this.currentPlan.name )">
+          </span>
+        </label>
+        <label ng-if="!planDisplay.isEditing" class = "item item-input item-select">
+           <div class = "input-label">
+              Sport
+           </div>
+           <select ng-model="currentPlan.sport" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(currentPlan.sport)">
+           </select>
+        </label>
+
+        <div ng-repeat="it in planCreationPerWeek">
+          <div class="item item-divider center-text">
+            S{{$index+1}}
+          </div>
+          <ion-item ng-repeat="kt in planCreationPerWeek[$index]">
+            <ion-avatar>
+              <img src={{kt.imgUrl}} class="sportpicsize"  >
+            </ion-avatar>
+            <div class="item-position" ng-click="gotoEditTraining(kt )">
+              <h2>{{kt.title}}</h2>
+              <p>{{kt.duration | minutes2Hours:'min'}}</p>
+            </div>
+          </ion-item>
+          <ion-item ng-click="addTraining($index)">
+            <div class="icon ion-plus"> Add a training </div>
+          </ion-item>
+        </div>
+        <div class="item item-divider center-text" ng-click="addTrainingWeek( )">
+          <i class="icon ion-plus"></i>
+          Add a week
+        </div>
+      </div>
+  </ion-content>
+
+        <footer class="hide-on-keyboard-open">
+          <button ng-if="planDisplay.plan" ion-fixed class="button button-float" ng-click="importTraining()">
+            <i class="icon ion-archive"></i>
+          </button>
+          <button ng-if="planDisplay.plan" ion-fixed class="button button-float-top button-assertive" style="background" ng-click="confirmDeletePlan( currentPlan )">
+            <i class="icon ion-trash-b"></i>
+          </button>
+          <button ng-if="planDisplay.plan" ion-fixed class="button button-float-topx2" ng-click="planDisplayCreation( planCreationPerWeek )">
+            <i class="icon ion-edit"></i>
+          </button>
+          <button ng-if="planDisplay.planCreation && !disableSaveButton && !planDisplay.isEditing" ion-fixed class="button button-float" ng-click="saveNewPlan()">
+            <i class="icon ion-checkmark-round"></i>
+          </button>
+          <button ng-if="planDisplay.planCreation && planDisplay.isEditing " ion-fixed class="button button-float" ng-click="saveTrainingPlan( currentPlan.name )">
+            <i class="icon ion-checkmark-round"></i>
+          </button>
+        </footer>
+</ion-view>
