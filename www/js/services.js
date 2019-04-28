@@ -43,6 +43,22 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=5');
 $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
 */
         initSportDB();
+
+
+      /*  $cordovaSQLite.execute(db, 'DELETE FROM T_PLAN WHERE id=1');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_PLAN WHERE id=2');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_PLAN WHERE id=3');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_PLAN WHERE id=4');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_PLAN WHERE id=5');
+
+        $cordovaSQLite.execute(db, 'DROP TABLE T_PLAN');
+*/
+        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_PLAN (id integer primary key, name, sport_id, imgUrl, distance, occurence, weekDuration, file,  UNIQUE(file))')
+          .then(function(res){
+          }, onErrorQuery)
+
+        initTrainingPlanDB();
+
       //  $cordovaSQLite.execute(db, 'DROP TABLE T_TRAINING');
       $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_TRAINING (id integer primary key, sport_id, duration, distance, trainingDate date, imgUrl, title, content)')
         .then(function(res){
@@ -313,6 +329,132 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
         else{
           callback( sportsCache );
         }
+      },
+
+/**
+* get all training plans for input sport
+*
+**/
+
+      createPlan: function (plan, callback) {
+      console.info('create plan')
+
+        $cordovaSQLite.execute(db, 'INSERT INTO T_PLAN ( name, sport_id, imgUrl, distance, occurence, weekDuration, file ) VALUES( ?, ? , ?, ?, ?, ?, ?)', [plan.name, plan.sport_id, plan.imgUrl, plan.distance, plan.occurence, plan.weekDuration, plan.file]).then(function(res){
+          callback( res.insertId );
+        }, onErrorQuery)
+
+      },
+
+      updatePlan: function (plan) {
+      console.info('update plan')
+
+        $cordovaSQLite.execute(db, 'UPDATE T_PLAN set name = ?, sport_id = ?, imgUrl = ?, distance = ?, occurence = ?, weekDuration = ?, file = ? where id = ?', [plan.name,plan.sport_id, plan.imgUrl, plan.distance, plan.occurence, plan.weekDuration, plan.file, plan.id]).then(function(res){
+        }, onErrorQuery)
+
+      },
+
+      deletePlan: function (id) {
+        console.info('delete plan')
+        return $cordovaSQLite.execute(db, 'DELETE FROM T_PLAN where id = ?', [id]);
+      },
+
+      getAllPlans: function( callback ){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT * FROM T_PLAN').then(function (results) {
+              var sportPlan = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                sportPlan.push( results.rows.item(i) )
+              }
+              callback(sportPlan)
+            }, onErrorQuery)
+          })
+      },
+      get3Plan: function(callback){
+        $ionicPlatform.ready(function () {
+          $cordovaSQLite.execute(db, 'SELECT * FROM T_PLAN LIMIT 3').then(function (results) {
+            var data = []
+
+            for (i = 0, max = results.rows.length; i < max; i++) {
+              data.push(results.rows.item(i))
+            }
+            callback(data)
+          }, onErrorQuery)
+        })
+      },
+      getAvailablePlansDistances: function(_sportID, callback){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT DISTINCT distance FROM T_PLAN where sport_id = ?', [_sportID]).then(function (results) {
+              var sportPlan = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                sportPlan.push( results.rows.item(i).distance )
+              }
+              callback(sportPlan)
+            }, onErrorQuery)
+          })
+      },
+      getAvailablePlansSports: function(callback){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT DISTINCT * FROM T_SPORT WHERE id IN ( SELECT DISTINCT sport_id FROM T_PLAN ) ').then(function (results) {
+
+            //$cordovaSQLite.execute(db, 'SELECT DISTINCT sport_id FROM T_PLAN').then(function (results) {
+              var sports = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                sports.push( results.rows.item(i) )
+              }
+              callback(sports)
+            }, onErrorQuery)
+          })
+      },
+      getAvailableOccurences: function(_sportID, _distance, callback){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT DISTINCT occurence FROM T_PLAN where sport_id = ? and distance= ?', [_sportID, _distance]).then(function (results) {
+              var occ = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                occ.push(results.rows.item(i).occurence)
+              }
+              callback(occ)
+            }, onErrorQuery)
+          })
+      },
+      getAvailableDuration: function(_sportID, _distance, _occurence, callback){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT DISTINCT weekDuration FROM T_PLAN where sport_id = ? and distance = ? and occurence = ?', [_sportID, _distance, _occurence]).then(function (results) {
+              var dur = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                dur.push(results.rows.item(i).weekDuration)
+              }
+              callback(dur)
+            }, onErrorQuery)
+          })
+      },
+      getPlanPath: function(_sportID, _distance, _occurence, _weekDuration, callback){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT DISTINCT file FROM T_PLAN where sport_id = ? and distance= ? and occurence= ? and weekDuration = ?', [_sportID, _distance, _occurence, _weekDuration]).then(function (results) {
+              var occ = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                occ.push(results.rows.item(i).file)
+              }
+              callback(occ)
+            }, onErrorQuery)
+          })
+      },
+      getAvailablePlan: function( _planId, callback){
+          $ionicPlatform.ready(function () {
+            $cordovaSQLite.execute(db, 'SELECT* FROM T_PLAN where id = ?', [_planId]).then(function (results) {
+              var sportPlan = []
+
+              for (i = 0, max = results.rows.length; i < max; i++) {
+                sportPlan.push( results.rows.item(i) )
+              }
+              callback(sportPlan)
+            }, onErrorQuery)
+          })
       },
 
       addTrainingNotification: function( training , trainingId) {

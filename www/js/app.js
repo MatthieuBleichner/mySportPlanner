@@ -35,7 +35,7 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
       templateUrl: 'templates/form.html',
       controller: 'FormCtrl',
       params: {
-        id: {value: null},
+        id: {value: null}
       },
     })
 
@@ -46,14 +46,38 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
       params: {
         id: {value: null},
         date: {value:null},
+        training: {value: null}
       },
     })
 
+    .state('planForm', {
+      url: '/planForm/{id}',
+      templateUrl: 'templates/planForm.html',
+      controller: 'PlanFormCtrl',
+      params: {
+        planData: {value: null}
+      },
+    })
+
+    .state('plan', {
+      url: '/plan/{plan}',
+      templateUrl: 'templates/plan.html',
+      controller: 'PlanCtrl',
+      params: {
+        planData: null
+      },
+    })
 
     .state('listTraining', {
       url: '/listTraining',
       templateUrl: 'templates/listTraining.html',
       controller: 'listTrainingCtrl'
+    })
+
+    .state('listPlan', {
+      url: '/listPlan',
+      templateUrl: 'templates/listPlan.html',
+      controller: 'listPlanCtrl'
     })
 
   $urlRouterProvider.otherwise('/list')

@@ -39,7 +39,7 @@
             <div class = "col txtCenter WeekContentBorder trainingContent" ng-repeat = "colVal in weekDaysEvents[$index]"  ng-click="selectedDateClick(colVal)"  style=" background-color: #f4f4f4">
                 <div  ng-click="gotoEditTraining(colVal.training.id)">
                   <img src={{colVal.img}} class="sportpicsize imageTraining" ng-if= "colVal.img">
-                  <div class="textTraining">  {{colVal.duration   | minutes2Hours:' min'}} </div>
+                  <div class="textTraining">  {{colVal.duration | minutes2Hours:' min'}} </div>
                 </div>
             </div>
           </div>

@@ -62,6 +62,31 @@
         </ion-item>
     </div>
 
+    <div class="card custom-card background-image">
+      <div class="item item-divider center-text">
+        <i class="icon ion-stats-bars"></i>
+        Training plan
+      </div>
+        <ion-list  no-lines>
+          <ion-item ng-if="$index<3" ng-repeat="plan in planList">
+            <ion-avatar>
+              <img src={{plan.imgUrl}} class="sportpicsize"  >
+            </ion-avatar>
+            <div class="item-position" ng-click="gotoDisplayPlan( plan )">
+              <h2>{{plan.file}}</h2>
+              <p>{{plan.occurence}} times a week / {{plan.weekDuration}} weeks </p>
+            </div>
+          </ion-item>
+        </ion-list>
+        <ion-item>
+          <a ng-if="planList.length<=2" ng-click="gotoEditPlan()" class="button button-block customBtnInList">
+            <i class="icon ion-plus-circled"></i> Add plan
+          </a>
+          <a ng-if="planList.length>2" href="#/listPlan" class="button button-block customBtnInList">
+            See more  <i class="icon ion-chevron-right"></i>
+          </a>
+        </ion-item>
+    </div>
   </ion-content>
 
 

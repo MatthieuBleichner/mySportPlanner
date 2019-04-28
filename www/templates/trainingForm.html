@@ -12,7 +12,7 @@
                <div class = "input-label">
                   Sport
                </div>
-               <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(sportType)">
+               <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(sportType, true)">
                </select>
             </label>
             <div class="item item-divider">
@@ -45,10 +45,10 @@
                      >
               {{trainingForm.maxDistance}}km
             </div-->
-            <div class="item item-divider">
+            <div ng-if="!isInPlan" class="item item-divider">
               Date
             </div>
-            <label class="item item-input">
+            <label ng-if="!isInPlan" class="item item-input">
               <span>
                   <input type="date" ng-model="trainingForm.date" class="dayEvent">
               </span>
@@ -56,7 +56,7 @@
 
             </label>
 
-              <ion-checkbox ng-if="!trainingForm.id" class="checkBoxRepeat"
+              <ion-checkbox ng-if="!trainingForm.id && !isInPlan" class="checkBoxRepeat"
               ng-model="trainingForm.repeat" ng-checked="trainingForm.repeat"> Repeat all weeks</ion-checkbox>
             <label class="item item-divider">
               name
