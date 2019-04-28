@@ -245,10 +245,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
               $scope.currentPlan= plan[0];
               CompetitionDataService.getSportById( $scope.currentPlan.sport_id, function (sport){
                 $scope.currentPlan.sport = sport;
-                if( !$scope.boolBypasDegeu  ){
+                if( !$scope.bPlanAlreadyLoaded  ){
                   $scope.displayPlanTrainingsFromJson( $scope.currentPlan );
                 }
-                boolBypasDegeu = false;
+                $scope.bPlanAlreadyLoaded = false;
                 $scope.planDisplayCreation( $scope.planCreationPerWeek );
               })
           })
@@ -278,7 +278,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       $scope.planDisplay.plan = false;
       $scope.planDisplay.planCreation = false;
       $scope.currentPlan={};
-      $scope.boolBypasDegeu = false;
+      $scope.bPlanAlreadyLoaded = false;
 
       $scope.displayPlanTrainingsFromJson = function( _planConfig ) {
           console.log("open file " + _planConfig.file);
@@ -431,7 +431,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       });
 
       $scope.gotoEditTraining = function( _training ){
-        $scope.boolBypasDegeu = true;
+        $scope.bPlanAlreadyLoaded = true;
         $state.go('trainingForm', {training: _training})
       }
 
