@@ -18,7 +18,7 @@ angular.module('starter.services', ['ngCordova'])
       $cordovaSQLite.execute(db, 'INSERT INTO T_SPORT ( name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime ) VALUES( "Cycling" , "true" , "true" , "false" , "img/bike.svg", 100, 10, 360, 15 )');
       $cordovaSQLite.execute(db, 'INSERT INTO T_SPORT ( name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime ) VALUES( "Swimming" , "true" , "true", "false" , "img/swim.svg", 6, 0.2, 60, 5 )');
       $cordovaSQLite.execute(db, 'INSERT INTO T_SPORT ( name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime ) VALUES( "Tennis" , "false" , "true" , "false", "img/tennis.svg", 0, 0, 120, 10 )');
-      $cordovaSQLite.execute(db, 'INSERT INTO T_SPORT ( name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime ) VALUES( "Triathlon" , "false" , "false" , "false", "img/triathlon.svg", 0, 0, 0, 0 )');
+      $cordovaSQLite.execute(db, 'INSERT INTO T_SPORT ( name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime ) VALUES( "Triathlon" , "false" , "true" , "false", "img/triathlon.svg", 0, 0, 180, 10 )');
       $cordovaSQLite.execute(db, 'INSERT INTO T_SPORT ( name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime ) VALUES( "Crossfit" , "false" , "true" , "false", "img/muscu.svg", 0, 0, 120, 5 )');
     }
 
@@ -456,7 +456,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
           })
       },
 
-      addTrainingNotification: function( training , trainingId) {
+      addTrainingNotification: function( training ) {
         var notifDate = moment( training.date );
         var today = moment();
         notifDate.add( -1, 'd');
@@ -473,7 +473,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
                 console.log("The notification not scheduled yet");
                 jsonData = {};
 
-                jsonData[trainingId] = { "trainingName" : training.title , "trainingDuration" : training.duration };
+                jsonData[0] = { "trainingName" : training.title , "trainingDuration" : training.duration };
 
                 $cordovaLocalNotification.schedule({
                     id: notifID,
