@@ -549,6 +549,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       $state.go('plan', {planData: plan})
     }
 
+    $scope.gotoEditPlan = function(){
+      $state.go('planForm')
+    }
 
 
   })
