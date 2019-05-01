@@ -259,17 +259,20 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.planDisplayCreation( $scope.currentPlan );
         }
         else{
-          CompetitionDataService.getAllSports(function(dataSports){
-            $scope.sportList = dataSports,
-            $scope.currentPlan.sport = dataSports[0];
-            $scope.currentPlan.sport_id = $scope.currentPlan.sport.id;
-            CompetitionDataService.getSportImgUrl($scope.currentPlan.sport.id , function(sportImg){
-              $scope.currentPlan.imgUrl = sportImg.logoURL;planCreationPerWeek
+          if( !$scope.bPlanAlreadyLoaded  ){
+            CompetitionDataService.getAllSports(function(dataSports){
+              $scope.sportList = dataSports,
+              $scope.currentPlan.sport = dataSports[0];
+              $scope.currentPlan.sport_id = $scope.currentPlan.sport.id;
+              CompetitionDataService.getSportImgUrl($scope.currentPlan.sport.id , function(sportImg){
+                $scope.currentPlan.imgUrl = sportImg.logoURL;planCreationPerWeek
 
-                console.log("plan created");
-              } );
-            });
-          $scope.planDisplayCreation();
+                  console.log("plan created");
+                } );
+              });
+            $scope.planDisplayCreation();
+          }
+          $scope.bPlanAlreadyLoaded = false;
         }
       })
 
@@ -397,6 +400,13 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
         iNbWeek = $scope.planCreationPerWeek.length;
         $scope.planCreationPerWeek.push( [] );
         $scope.planCreationPerWeek[iNbWeek].push( newTraining );
+      }
+
+      $scope.removeTrainingWeek = function( weekId ) {
+        if( weekId < $scope.planCreationPerWeek.length )
+        {
+          $scope.planCreationPerWeek.splice( weekId, 1 );
+        }
       }
 
       $scope.addTraining = function( iWeekId ) {

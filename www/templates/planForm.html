@@ -36,8 +36,13 @@
         </label>
 
         <div ng-repeat="it in planCreationPerWeek">
-          <div class="item item-divider center-text">
-            S{{$index+1}}
+          <div class="item item-divider" >
+            <span class="centerSpan" >
+              S{{$index+1}}
+            </span>
+
+            <i class="icon ion-trash-b removeItem" ng-click="removeTrainingWeek({{$index}})"></i>
+
           </div>
           <ion-item ng-repeat="kt in planCreationPerWeek[$index]">
             <ion-avatar>

@@ -96,7 +96,13 @@
     font-size: 20px;
   }
 
+  .removeItem {
+       float: right;
+  }
 
+  .centerSpan {
+    margin: 45%;
+   }
 
   .square-card {
     margin-top:5%;
