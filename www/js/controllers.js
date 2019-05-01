@@ -1128,11 +1128,11 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
         $scope.sportList = dataSports;
         $scope.isInPlan = false;
 
-        if($stateParams.id){
+        if($stateParams.id){ //update an existing training
           CompetitionDataService.getTrainingById($stateParams.id, function(item){
             $scope.trainingForm = item;
             $scope.sportType = $scope.sportList[item.sport_id-1];
-            $scope.trainingForm.date = new Date(item.trainingDate); //TODO: reprendre la gestion des dates
+            $scope.trainingForm.date = new Date(item.trainingDate);
 
             if( $scope.sportList[item.sport_id-1].isTimeAvailable == "true" ){
               $scope.trainingForm.disableDuration = false;
@@ -1157,11 +1157,13 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                   $scope.show = true; //by pass, pour pas que l'affichage blink
           })
 
-        } else if( $stateParams.training ){
+        } else if( $stateParams.training ){ //from training plan
           $scope.trainingForm = $stateParams.training;
           $scope.show = true; //by pass, pour pas que l'affichage blink
           $scope.isInPlan = true;
           $scope.sportType = $scope.sportList[$stateParams.training.sport_id-1];
+
+          $scope.sportChange( $scope.sportType, false );
 
 
 
