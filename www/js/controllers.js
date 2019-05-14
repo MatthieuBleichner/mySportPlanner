@@ -660,10 +660,35 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           var minutes = input%60;
           var hours = (input - minutes) / 60;
           if ( minutes != 0){
+            if (minutes< 10)
+                minutes = "0" + minutes;
             return hours + "h" + minutes
           }
           else{
             return hours + "h";
+          }
+        }
+        else{
+          return input + format;
+        }
+
+      };
+  })
+
+  .filter('m2Kms', function() {
+      return function(input,format) {
+        if( input=="" )
+          return input;
+        if( input/1000 >= 1){
+          var meters = input%1000;
+          if (meters< 100)
+              meters = "0" + meters;
+          var kms = (input - meters) / 1000;
+          if ( meters != 0){
+            return kms + "km" + meters
+          }
+          else{
+            return kms + "km";
           }
         }
         else{
