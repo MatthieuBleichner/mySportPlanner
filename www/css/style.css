@@ -204,8 +204,8 @@
 .item-position{
   position: absolute;
   top    : 20%;
-  right  : 30%;
-  width  : 45% !important;
+  right  : 5%;
+  width  : 75% !important;
   height : 100% !important;
 
 }
