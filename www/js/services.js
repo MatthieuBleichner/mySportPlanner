@@ -212,12 +212,10 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
       },
 
       //TRainings
-      createTraining: function (training, callback) {
+      createTraining: function (training) {
       console.info('create training')
       buildTrainingCache = true;
-        $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]).then(function(res){
-          callback( res.insertId );
-        }, onErrorQuery)
+        $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]);
 
       },
       updateTraining: function(training){
