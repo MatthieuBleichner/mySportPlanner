@@ -265,7 +265,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
               $scope.currentPlan.sport = dataSports[0];
               $scope.currentPlan.sport_id = $scope.currentPlan.sport.id;
               CompetitionDataService.getSportImgUrl($scope.currentPlan.sport.id , function(sportImg){
-                $scope.currentPlan.imgUrl = sportImg.logoURL;planCreationPerWeek
+                $scope.currentPlan.imgUrl = sportImg.logoURL;
 
                   console.log("plan created");
                 } );
