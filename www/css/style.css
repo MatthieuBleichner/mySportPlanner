@@ -227,7 +227,17 @@
     max-height: 35px !important; //any size
 }
 
+input.titleDefaultColor  {
+  color: #8e8e8e;
+}
 
+select.titleDefaultColor  {
+  color: #8e8e8e;
+}
+
+textarea:focus, input:focus, select:focus {
+    color: #000;
+}
 
 .button.customBtn:hover{
   -webkit-transform: translate3d(0, -1px, 0)  !important;

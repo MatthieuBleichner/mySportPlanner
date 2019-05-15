@@ -1162,6 +1162,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       CompetitionDataService.getAllSports(function(dataSports){
         $scope.sportList = dataSports;
         $scope.isInPlan = false;
+        $scope.titleUpdated = false;
+        $scope.dateUpdated = false;
+        $scope.sportUpdated = false;
+
 
         if($stateParams.id){ //update an existing training
           CompetitionDataService.getTrainingById($stateParams.id, function(item){
@@ -1191,6 +1195,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             //$scope.trainingForm.duration      = $scope.trainingForm.maxTime/2;
                   $scope.show = true; //by pass, pour pas que l'affichage blink
           })
+          $scope.titleUpdated = true;
+          $scope.dateUpdated = true;
+          $scope.sportUpdated = true;
 
         } else if( $stateParams.training ){ //from training plan
           $scope.trainingForm = $stateParams.training;
@@ -1199,6 +1206,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.sportType = $scope.sportList[$stateParams.training.sport_id-1];
 
           $scope.sportChange( $scope.sportType, false );
+          $scope.titleUpdated = true;
+          $scope.dateUpdated = true;
+          $scope.sportUpdated = true;
 
 
 
@@ -1223,6 +1233,21 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
         }
       })
     }
+
+    $scope.onTrainingNameChanged = function(){
+      $scope.titleUpdated = true;
+    }
+
+    $scope.onTrainingDateChanged = function(){
+      $scope.dateUpdated = true;
+    }
+
+    $scope.onTraingSportChanged = function( item, bUpdateTitle ){
+      $scope.sportUpdated = true;
+      $scope.sportChange( item, !$scope.titleUpdated );
+    }
+
+
 
     $scope.sportChange = function(item, bUpdateTitle) {
       console.log("Sport is :", item.id);

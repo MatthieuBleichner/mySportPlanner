@@ -12,7 +12,7 @@
                <div class = "input-label">
                   Sport
                </div>
-               <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="sportChange(sportType, true)">
+               <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="onTraingSportChanged(sportType, true)" ng-class="{'titleDefaultColor' : !sportUpdated}">
                </select>
             </label>
             <div class="item item-divider" ng-if="trainingForm.disableDuration == false" >
@@ -50,7 +50,7 @@
             </div>
             <label ng-if="!isInPlan" class="item item-input">
               <span>
-                  <input type="date" ng-model="trainingForm.date" class="dayEvent">
+                  <input type="date" ng-model="trainingForm.date" class="dayEvent " ng-change="onTrainingDateChanged()" ng-class="{'titleDefaultColor' : !dateUpdated}">
               </span>
 
 
@@ -63,7 +63,7 @@
             </label>
             <label class="item item-input">
               <span>
-                <input type="text" ng-model="trainingForm.title" ng-keyup="hideKeyBoard($event)" placeholder="Enter training name">
+                <input type="text" ng-model="trainingForm.title" ng-keyup="hideKeyBoard($event)" ng-change="onTrainingNameChanged()" placeholder="Enter training name" ng-class="{'titleDefaultColor' : !titleUpdated}">
               </span>
             </label>
             <label class="item item-divider">
