@@ -1173,13 +1173,17 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
   })
 
-
   .controller('TrainingFormCtrl', function ($scope, $stateParams, $ionicPopup, $state, CompetitionDataService, $ionicHistory) {
     $scope.$on('$ionicView.enter', function(e) {
       initForm();
     })
 
     function initForm(){
+      $scope.trainingForm = {};
+      $scope.trainingForm.maxDistance   = 3000;
+      $scope.trainingForm.stepDistance  = 50;
+      $scope.trainingForm.maxTime       = 360;
+      $scope.trainingForm.stepTime      = 15;
 
       CompetitionDataService.getAllSports(function(dataSports){
         $scope.sportList = dataSports;
