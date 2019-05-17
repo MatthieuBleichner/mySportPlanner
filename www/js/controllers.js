@@ -69,6 +69,8 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           //$scope.planDisplay.plan = true;
           $scope.currentPlan = _planConfig;
           $scope.planCreationPerWeek=[];
+          $scope.nbTrainingPerWeek =[];
+          $scope.nbHoursPerWeek = [];
 
           var dirName = "plans";
 
@@ -85,9 +87,16 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                             function (data) {
                               console.log("files readed");
                                 $scope.planCreationPerWeek = JSON.parse(data);
-                                console.log("_planConfig.file" + _planConfig.file);
-
-                                console.log("contains" + $scope.planCreationPerWeek );
+                                var nbWeek = $scope.planCreationPerWeek.length;
+                                for(it=0;it<nbWeek;it++){
+                                  var nbTraining = $scope.planCreationPerWeek[it].length;
+                                  $scope.nbTrainingPerWeek.push( nbTraining );
+                                  var nbHours = 0;
+                                  for(jt=0;jt<nbTraining;jt++){
+                                    nbHours += $scope.planCreationPerWeek[it][jt].duration;
+                                  }
+                                  $scope.nbHoursPerWeek.push(nbHours);
+                                }
 
                             }, function (error) {
                             });
@@ -111,7 +120,20 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           $scope.addTraining( 2 );
           $scope.addTraining( 2 );
           $scope.addTraining( 2 );
+
+          var nbWeek = $scope.planCreationPerWeek.length;
+          for(it=0;it<nbWeek;it++){
+            var nbTraining = $scope.planCreationPerWeek[it].length;
+            $scope.nbTrainingPerWeek.push( nbTraining );
+            var nbHours = 0;
+            for(jt=0;jt<nbTraining;jt++){
+              nbHours += $scope.planCreationPerWeek[it][jt].duration;
+            }
+            $scope.nbHoursPerWeek.push(nbHours);
+          }
         }
+
+
 
 
       }

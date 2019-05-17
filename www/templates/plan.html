@@ -10,11 +10,23 @@
 
       <div class="card custom-card background-image">
         <div ng-repeat="it in planCreationPerWeek">
-          <div class="item item-divider center-text">
-            S{{$index+1}}
+          <div class="item item-divider">
+            <span >
+              S{{$index+1}}
+            </span>
+
+            <span class="removeItem">
+              duration: {{nbHoursPerWeek[$index] | minutes2Hours:' min'}}
+            </span>
           </div>
-          <ion-item ng-repeat="jt in planCreationPerWeek[$index]">
-            <div class> {{jt.title}} </div>
+          <ion-item ng-repeat="training in planCreationPerWeek[$index]" style="height:500px " class="itemShowMore">
+            <ion-avatar>
+              <img src={{training.imgUrl}} class="sportpicsize"  >
+            </ion-avatar>
+            <div class="item-position">
+              <h2>{{training.title}}</h2>
+              <p>{{training.content}}</p>
+            </div>
           </ion-item>
         </div>
       </div>

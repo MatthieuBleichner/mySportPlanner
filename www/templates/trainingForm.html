@@ -27,7 +27,7 @@
                        step={{trainingForm.stepTime}}
                        ng-model="trainingForm.duration"
                        value="{{trainingForm.duration}}"
-                       >
+                       integer >
                 {{trainingForm.maxTime | minutes2Hours:''}}
             </div>
             <div ng-if="trainingForm.disableDistance == false" class="item item-divider">
@@ -36,13 +36,13 @@
             <div  class="item range scroll" ng-if="trainingForm.disableDistance == false" >
               0
               <input type="range"
-                     name="minutes"
+                     name="meters"
                      min="0"
                      max={{trainingForm.maxDistance}}
                      step={{trainingForm.stepDistance}}
                      ng-model="trainingForm.distance"
                      value="{{trainingForm.distance}}"
-                     >
+                     integer>
               {{trainingForm.maxDistance}}m
             </div>
             <div ng-if="!isInPlan" class="item item-divider">
