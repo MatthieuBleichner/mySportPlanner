@@ -1265,8 +1265,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
     }
 
     $scope.onTraingSportChanged = function( item, bUpdateTitle ){
+      $scope.show = false;
       $scope.sportUpdated = true;
-      $scope.sportChange( item, !$scope.titleUpdated );
+      $scope.sportChange( item, bUpdateTitle );
+      $scope.show = true;
     }
 
 
@@ -1277,32 +1279,42 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       if( bUpdateTitle === true ){
         $scope.trainingForm.title = item.name;
       }
+
+
+
       CompetitionDataService.getSportImgUrl(item.id, function(imgUrl){
         $scope.trainingForm.imgUrl  = imgUrl.logoURL
       })
-
-      if( item.isTimeAvailable === "true" ){
-        $scope.trainingForm.disableDuration = false;
-      }
-      else {
-        $scope.trainingForm.disableDuration = true;
-      }
-
-      if( item.isDistanceAvailable === "true" ){
-        $scope.trainingForm.disableDistance= false;
-      }
-      else {
-        $scope.trainingForm.disableDistance = true;
-      }
 
       $scope.trainingForm.maxDistance   = item.maxDistance;
       $scope.trainingForm.stepDistance  = item.stepDistance;
       $scope.trainingForm.maxTime       = item.maxTime;
       $scope.trainingForm.stepTime      = item.stepTime;
-      $scope.trainingForm.distance      = $scope.trainingForm.maxDistance/2 ;
+      if( bUpdateTitle === true ){
+        $scope.trainingForm.distance      = $scope.trainingForm.maxDistance/2 ;
+      }
       if( bUpdateTitle === true ){
         $scope.trainingForm.duration      = $scope.trainingForm.maxTime/2;
       }
+
+
+      if( item.isTimeAvailable === "true" ){
+        $scope.trainingForm.maxDistance   = 1000; //bypass to ùake ui works properly when changing from a sport with time to a sport with distance
+        $scope.trainingForm.stepDistance  = 10;
+        $scope.trainingForm.maxTime       = item.maxTime;
+        $scope.trainingForm.stepTime      = item.stepTime;
+      }
+      if( item.isDistanceAvailable === "true" ){
+        $scope.trainingForm.maxDistance   = item.maxDistance;
+        $scope.trainingForm.stepDistance  = item.stepDistance;
+        $scope.trainingForm.maxTime       =  60;//bypass to ùake ui works properly when changing from a sport with time to a sport with distance
+        $scope.trainingForm.stepTime      = 1;
+      }
+
+      $scope.trainingForm.disableDuration =  item.isTimeAvailable === "false";
+      $scope.trainingForm.disableDistance =  item.isDistanceAvailable === "false";
+
+
     }
 
     function onSaveSuccess(){

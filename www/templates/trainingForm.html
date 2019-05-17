@@ -15,10 +15,10 @@
                <select ng-model="sportType" ng-options="sport as sport.name for sport in sportList" ng-change="onTraingSportChanged(sportType, true)" ng-class="{'titleDefaultColor' : !sportUpdated}">
                </select>
             </label>
-            <div class="item item-divider" ng-if="trainingForm.disableDuration == false" >
+            <div class="item item-divider" ng-show="trainingForm.disableDuration == false" >
               Duration {{trainingForm.duration | minutes2Hours:' min'}}
             </div>
-            <div class="item range scroll" ng-if="trainingForm.disableDuration == false">
+            <div class="item range scroll" ng-show="trainingForm.disableDuration == false">
                 0
                 <input type="range"
                        name="minutes"
@@ -30,10 +30,10 @@
                        integer >
                 {{trainingForm.maxTime | minutes2Hours:''}}
             </div>
-            <div ng-if="trainingForm.disableDistance == false" class="item item-divider">
+            <div ng-show="trainingForm.disableDistance == false" class="item item-divider">
               Distance {{trainingForm.distance | m2Kms:' meters'}}
             </div>
-            <div  class="item range scroll" ng-if="trainingForm.disableDistance == false" >
+            <div  class="item range scroll" ng-show="trainingForm.disableDistance == false" >
               0
               <input type="range"
                      name="meters"
