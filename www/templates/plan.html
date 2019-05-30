@@ -19,13 +19,17 @@
               duration: {{nbHoursPerWeek[$index] | minutes2Hours:' min'}}
             </span>
           </div>
-          <ion-item ng-repeat="training in planCreationPerWeek[$index]" style="height:500px " class="itemShowMore">
-            <ion-avatar>
-              <img src={{training.imgUrl}} class="sportpicsize"  >
-            </ion-avatar>
-            <div class="item-position">
-              <h2>{{training.title}}</h2>
-              <p>{{training.content}}</p>
+
+          <ion-item ng-repeat="training in planCreationPerWeek[$index]">
+            <div>
+              <div style="width: 15%; float:left;">
+                <img src={{training.imgUrl}} class="sportpicsize"  >
+              </div>
+
+              <div style="width: 80%; float:left;" ng-click="showMoreDetails( training )" >
+                <h2>{{training.title}}</h2>
+                <p ><span ng-class="{'showAllText': training.showMore}">{{training.content}}</span></p>
+              </div>
             </div>
           </ion-item>
         </div>

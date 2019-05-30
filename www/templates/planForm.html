@@ -7,17 +7,6 @@
   </ion-nav-bar>
 
   <ion-content>
-      <div ng-show="planDisplay.plan" class="card custom-card background-image">
-        <div ng-repeat="it in planCreationPerWeek">
-          <div class="item item-divider center-text">
-            S{{$index+1}}
-          </div>
-          <ion-item ng-repeat="jt in planCreationPerWeek[$index]">
-            <div class> {{jt.title}} </div>
-          </ion-item>
-        </div>
-      </div>
-
       <div ng-show="planDisplay.planCreation" class="card custom-card background-image">
         <div ng-if="!planDisplay.isEditing" class="item item-divider center-text">
           Training plan's name

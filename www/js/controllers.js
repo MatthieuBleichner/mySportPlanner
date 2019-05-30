@@ -94,6 +94,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                                   var nbHours = 0;
                                   for(jt=0;jt<nbTraining;jt++){
                                     nbHours += $scope.planCreationPerWeek[it][jt].duration;
+                                    $scope.planCreationPerWeek[it][jt].showMore = false;
                                   }
                                   $scope.nbHoursPerWeek.push(nbHours);
                                 }
@@ -250,6 +251,12 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       $scope.gotoEditPlan = function(planId){
         $state.go('planForm', {id: planId})
       }
+
+      $scope.showMoreDetails = function( training ){
+        training.showMore =! training.showMore;
+      }
+
+
 
   })
 

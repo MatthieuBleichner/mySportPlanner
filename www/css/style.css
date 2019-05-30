@@ -206,8 +206,13 @@
   top    : 20%;
   right  : 5%;
   width  : 75% !important;
-  height : 100% !important;
+- height : 100% !important;
 
+
+}
+
+span.showAllText{
+  white-space: initial;
 }
 
 .bottomBorder{
