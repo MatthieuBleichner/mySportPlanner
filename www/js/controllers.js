@@ -226,6 +226,12 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           else if( nbTraining == 5){
               weekDayTraining=[2,3,4,6,7];
           }
+          else if( nbTraining == 6){
+              weekDayTraining=[1,2,3,4,6,7];
+          }
+          else if( nbTraining == 7){
+              weekDayTraining=[1,2,3,4,5,6,7];
+          }
           else {
             for(jt=0;jt<nbTraining;jt++)
             {
@@ -240,8 +246,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             eventDate.add(7*(parseInt(it) ) + parseInt( weekDayTraining[jt] -1 ),'day');
 
             training.date = eventDate.toDate();
-            CompetitionDataService.createTraining(training);
-            CompetitionDataService.addTrainingNotification(training);
+            CompetitionDataService.createTraining(training , function (trainingId, newTraining){
+                newTraining.id = trainingId; //tricky: set database id to training - var training can not be used cause it's an asynchronous callback
+                CompetitionDataService.addTrainingNotification( newTraining );
+             });
           }
         }
         $scope.modalImportPlan.hide();
@@ -1256,6 +1264,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           }
 
           $scope.trainingForm.date.setHours(12,0,0); //avoid potential issues with local time when hours is 00.00
+          $scope.trainingForm.date.setMilliseconds(0);
 
 
           $scope.sportType = dataSports[0];
@@ -1337,8 +1346,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
       if( !$scope.isInPlan ){ //do not update db when creating a training for a plan
         if(!$scope.trainingForm.id){
-            CompetitionDataService.createTraining($scope.trainingForm);
-            CompetitionDataService.addTrainingNotification($scope.trainingForm);
+            CompetitionDataService.createTraining($scope.trainingForm , function (trainingId, newTraining ){
+                newTraining.id = trainingId;
+                CompetitionDataService.addTrainingNotification( newTraining );
+              });
         } else {
           CompetitionDataService.updateTraining($scope.trainingForm)
         }
@@ -1359,8 +1370,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                 var nextTraining = $scope.trainingForm;
                 var nextDate = moment($scope.trainingForm.date).add(1,'w');
                 nextTraining.date = nextDate.toDate();
-                CompetitionDataService.createTraining(nextTraining);
-                CompetitionDataService.addTrainingNotification(nextTraining);
+                CompetitionDataService.createTraining(nextTraining , function (trainingId, newTraining){
+                    newTraining.id = trainingId;
+                    CompetitionDataService.addTrainingNotification( newTraining );
+                  });
               }
             }
           })

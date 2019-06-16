@@ -212,10 +212,12 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
       },
 
       //TRainings
-      createTraining: function (training) {
+      createTraining: function (training, callback ) {
       console.info('create training')
       buildTrainingCache = true;
-        $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]);
+        $cordovaSQLite.execute(db, 'INSERT INTO T_TRAINING (sport_id, duration, distance, trainingDate, imgUrl, title, content) VALUES( ? , ? , ? , ? , ? , ?, ?)', [training.sport_id, training.duration, training.distance,training.date.toISOString(),training.imgUrl, training.title, training.content]).then(function(res){
+          callback( res.insertId, training );
+        }, onErrorQuery)
 
       },
       updateTraining: function(training){
@@ -469,9 +471,8 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
           //  alert("Notification " + training.date.toISOString() + " Scheduled: " + isScheduled);
               if( isScheduled != true ){
                 console.log("The notification not scheduled yet");
-                jsonData = {};
-
-                jsonData[0] = { "trainingName" : training.title , "trainingDuration" : training.duration };
+                jsonData = [];
+                jsonData.push( { "trainingId": training.id , "trainingName" : training.title , "trainingDuration" : training.duration } );
 
                 $cordovaLocalNotification.schedule({
                     id: notifID,
@@ -482,29 +483,34 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
                     icon: 'icon',
                     sound: null,
                     data: jsonData
-                }).then(function () {
+                }).then(function ( res ) {
                   //  alert("addTrainingNotification ok");
-                    console.log("The notification has been set");
+                    console.log("The notification has been set : " + res);
                 });
               }else {
+                //@todo find a way to update training
+                /*
                 console.log("The notification is already scheduled => update it");
                 //Bypass because getScheduled( notifID ); doesn't return anything, then get all scheduled and find current one
-                 $cordovaLocalNotification.getAllScheduled(  ).then(
+                 $cordovaLocalNotification.get( notifID ).then(
                    function( res ) {
-                    var jsonData = {};
-                    for (var i = 0;i<res.length;i++) {
-                      notif = res[i];
-                      if (notif.id == notifID ) {
-                        jsonData = JSON.parse(notif.data) ;
-                        break;
-                      }
-                    }
+                    var jsonData = [];
+                    jsonData= res.data;
 
                     newText = "Tommorow : " ;
                     varthis = this;
 
-                    jsonData[trainingId] = { "trainingName" : training.title , "trainingDuration" : training.duration };
+                    var found = false;
+                    for(jt=0;jt<jsonData.length;jt++){
+                      if( jsonData[jt].trainingId == training.id ){
+                        jsonData[jt] = { "trainingId" : training.id ,"trainingName" : training.title , "trainingDuration" : training.duration };
+                        found = true;
+                      }
+                    }
 
+                    if( !found ){
+                      jsonData.push( { "trainingId" : training.id ,"trainingName" : training.title , "trainingDuration" : training.duration } );
+                    }
                     var it = 0;
                     for(var key in jsonData)
                     {
@@ -526,6 +532,7 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
 
                     //  alert("addTrainingNotification notification already exist");
                 })
+                */
           }
         })
       }
@@ -543,9 +550,11 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
               if( isScheduled == true ){
                 console.log("The notification has been found => delete it");
                 //Bypass because getScheduled( notifID ); doesn't return anything, then get all scheduled and find current one
-                $cordovaLocalNotification.getAllScheduled(  ).then(
+                $cordovaLocalNotification.get( notifID ).then(
                   function( res ) {
-                   var jsonData = {};
+
+                   var jsonData = [];
+                   /*
                    for (var i = 0;i<res.length;i++) {
                      notif = res[i];
                      if (notif.id == notifID ) {
@@ -553,13 +562,21 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
                        break;
                      }
                    }
-
+                   */
+                   /*
+                jsonData = res.data ;
                 newText = "Tommorow : " ;
 
-                if(Object.keys(jsonData).length > 1)
+                if(jsonData.length > 1)
                 {
-                  delete jsonData[training.id];
 
+                  var pos = 0;
+                  for(jt=0;jt<jsonData.length;jt++){
+                    if( jsonData[jt].trainingId == training.id ){
+                      pos = jt;
+                    }
+                  }
+                  jsonData.splice( jt );
                   var it = 0;
                   for(var key in jsonData)
                   {
@@ -578,7 +595,9 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
                   })
                   console.log("Exisiting notification has been updated");
                 }
-                else {
+                else
+                */
+                {
                   $cordovaLocalNotification.cancel(notifID).then(function () {
                     //  alert("addTrainingNotification ok");
                       console.log("The notification has been deleted");
