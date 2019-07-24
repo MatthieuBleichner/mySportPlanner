@@ -480,7 +480,8 @@ $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
                     text: "Tomorrow : " + training.title + " " + training.duration + " min",
                     title: "My sport planner",
                     autoCancel: true,
-                    icon: 'icon',
+                    //icon: 'res://drawable-hdpi/icon.png',
+                    smallIcon: 'res://drawable-hdpi/icon.png',
                     sound: null,
                     data: jsonData
                 }).then(function ( res ) {
