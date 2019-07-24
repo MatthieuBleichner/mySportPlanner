@@ -201,10 +201,10 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
         })
       }
 
-      $scope.start = function( endDate ){
-        var date = moment( endDate );
+      $scope.start = function( startDate ){
+        var date = moment( startDate );
         var nbWeek = $scope.planCreationPerWeek.length;
-        initialDate = moment(date).add( - (nbWeek-1), 'w').isoWeekday(1);
+        initialDate = moment(startDate).isoWeekday(1);
         initialDate.startOf('isoweek');
 
         for(it=0;it<nbWeek;it++){
@@ -253,7 +253,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           }
         }
         $scope.modalImportPlan.hide();
-        $state.go('list');
+        $state.go('listTraining');
       }
 
       $scope.gotoEditPlan = function(planId){
