@@ -163,6 +163,15 @@
     color:white !important;
 }
 
+.navBarTitle {
+  position: relative;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .bar.mainTitle{
     background-color:#f5511e !important;
     color:white !important;
