@@ -1080,6 +1080,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                   var fullDate = new Date( );
                   fullDate.setDate( dayTimeOfWeek.getDate() + dayIt);
                   var dayString = fullDate.toLocaleDateString('fr-FR', weekdayOptions);
+                  dayString = dayString.charAt(0).toUpperCase() + dayString.slice(1)
                   date = fullDate.toLocaleDateString('fr-FR', dateOptions);
                   $scope.weekDays[dayIt] = {date,dayString};
                   //realDate = fullDate.toDate();
