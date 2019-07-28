@@ -798,7 +798,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             $scope.displayCompleteDate = function() {
 
                 var options = { weekday: 'long' };
-                $scope.displayWeekDay = new Date( selectedYear,selectedMonth,selectedDate ).toLocaleDateString('fr-FR', options);
+                var displayWeekDay = new Date( selectedYear,selectedMonth,selectedDate ).toLocaleDateString('fr-FR', options);
+                $scope.displayWeekDay = displayWeekDay.charAt(0).toUpperCase() + displayWeekDay.slice(1)
+
             }
 
             //Onload Display Current Date
