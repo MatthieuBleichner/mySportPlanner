@@ -12,7 +12,7 @@
     <div class="card custom-card">
       <div class="item item-divider center-text">
         <i class="icon ion-android-stopwatch"></i>
-        Training
+        Entraînements
       </div>
       <ion-list>
         <ion-item ng-if="$index<3" ng-repeat="training in trainingList">
@@ -21,17 +21,17 @@
           </ion-avatar>
           <div class="item-position" ng-click="gotoEditTraining(training.id )">
             <h2>{{training.title}}</h2>
-            <p>{{training.trainingDate | filterDate:'dd MMMM yyyy'}}</p>
+            <p>{{training.trainingDate | filterDate}}</p>
           </div>
         </ion-item>
       </ion-list>
 
       <ion-item>
         <a ng-if="trainingList.length<=2" class="button button-block customBtnInList" ng-click="gotoEditTraining(training.id )">
-          <i class="icon ion-plus-circled"></i> Add training
+          <i class="icon ion-plus-circled"></i> Nouveau
         </a>
         <a ng-if="trainingList.length>2" href="#/listTraining" class="button button-block customBtnInList">
-          See more  <i class="icon ion-chevron-right"></i>
+          Voir plus  <i class="icon ion-chevron-right"></i>
         </a>
       </ion-item>
     </div>
@@ -39,7 +39,7 @@
     <div class="card custom-card background-image">
       <div class="item item-divider center-text">
         <i class="icon ion-trophy"></i>
-        Competition
+        Compétitions
       </div>
         <ion-list  no-lines>
           <ion-item ng-if="$index<3" ng-repeat="item in itemsList">
@@ -48,16 +48,16 @@
             </ion-avatar>
             <div class="item-position" ng-click="gotoEdit(item.id)">
               <h2>{{item.title}}</h2>
-              <p>{{item.activityDate | date:'dd MMMM yyyy'}}</p>
+              <p>{{item.activityDate | filterDate}}</p>
             </div>
           </ion-item>
         </ion-list>
         <ion-item>
           <a ng-if="itemsList.length<=2" ng-click="gotoEdit(item.id)" class="button button-block customBtnInList">
-            <i class="icon ion-plus-circled"></i> Add event
+            <i class="icon ion-plus-circled"></i> Nouveau
           </a>
           <a ng-if="itemsList.length>2" href="#/listCompetition" class="button button-block customBtnInList">
-            See more  <i class="icon ion-chevron-right"></i>
+            Voir plus  <i class="icon ion-chevron-right"></i>
           </a>
         </ion-item>
     </div>
@@ -65,7 +65,7 @@
     <div class="card custom-card background-image">
       <div class="item item-divider center-text">
         <i class="icon ion-stats-bars"></i>
-        Training plan
+        Plans d'entraînements
       </div>
         <ion-list  no-lines>
           <ion-item ng-if="$index<3" ng-repeat="plan in planList">
@@ -74,16 +74,16 @@
             </ion-avatar>
             <div class="item-position" ng-click="gotoDisplayPlan( plan )">
               <h2>{{plan.file}}</h2>
-              <p>{{plan.occurence}} times a week / {{plan.weekDuration}} weeks </p>
+              <p>{{plan.occurence}} fois par semaine / {{plan.weekDuration}} semaines </p>
             </div>
           </ion-item>
         </ion-list>
         <ion-item>
           <a ng-if="planList.length<=2" ng-click="gotoEditPlan()" class="button button-block customBtnInList">
-            <i class="icon ion-plus-circled"></i> Add plan
+            <i class="icon ion-plus-circled"></i> Nouveau
           </a>
           <a ng-if="planList.length>2" href="#/listPlan" class="button button-block customBtnInList">
-            See more  <i class="icon ion-chevron-right"></i>
+            Voir plus  <i class="icon ion-chevron-right"></i>
           </a>
         </ion-item>
     </div>

@@ -2,7 +2,7 @@
   <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
     <ion-nav-back-button></ion-nav-back-button>
     <ion-nav-title>
-        Edit training
+        Entraînement
     </ion-nav-title>
   </ion-nav-bar>
 
@@ -16,7 +16,7 @@
                </select>
             </label>
             <div class="item item-divider" ng-show="trainingForm.disableDuration == false" >
-              Duration {{trainingForm.duration | minutes2Hours:' min'}}
+              Durée {{trainingForm.duration | minutes2Hours:' min'}}
             </div>
             <div class="item range scroll" ng-show="trainingForm.disableDuration == false">
                 0
@@ -57,9 +57,9 @@
             </label>
 
               <ion-checkbox ng-if="!trainingForm.id && !isInPlan" class="checkBoxRepeat"
-              ng-model="trainingForm.repeat" ng-checked="trainingForm.repeat"> Repeat all weeks</ion-checkbox>
+              ng-model="trainingForm.repeat" ng-checked="trainingForm.repeat"> Répéter toutes les semaines</ion-checkbox>
             <label class="item item-divider">
-              name
+              Nom
             </label>
             <label class="item item-input">
               <span>
@@ -67,7 +67,7 @@
               </span>
             </label>
             <label class="item item-divider">
-              extra comments
+              Plus d'infos
             </label>
             <label class="item item-input">
                 <textarea rows="4" ng-model="trainingForm.content" ng-keyup="hideKeyBoard($event)" placeholder="Enter extra content">

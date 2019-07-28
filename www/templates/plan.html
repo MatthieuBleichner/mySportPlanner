@@ -2,7 +2,7 @@
   <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
     <ion-nav-back-button></ion-nav-back-button>
     <ion-nav-title>
-        Edit plan
+        {{currentPlan.name}}
     </ion-nav-title>
   </ion-nav-bar>
 
@@ -16,7 +16,7 @@
             </span>
 
             <span class="removeItem">
-              duration: {{nbHoursPerWeek[$index] | minutes2Hours:' min'}}
+              durée: {{nbHoursPerWeek[$index] | minutes2Hours:' min'}}
             </span>
           </div>
 

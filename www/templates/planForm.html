@@ -2,14 +2,14 @@
   <ion-nav-bar class="bar bar-royal mainTitle" align-title="center">
     <ion-nav-back-button></ion-nav-back-button>
     <ion-nav-title>
-        Edit plan
+        {{currentPlan.name}}
     </ion-nav-title>
   </ion-nav-bar>
 
   <ion-content>
       <div ng-show="planDisplay.planCreation" class="card custom-card background-image">
         <div ng-if="!planDisplay.isEditing" class="item item-divider center-text">
-          Training plan's name
+          Nom
         </div>
         <label class="item item-input" ng-if="!planDisplay.isEditing">
           <span>
@@ -43,12 +43,12 @@
             </div>
           </ion-item>
           <ion-item ng-click="addTraining($index)">
-            <div class="icon ion-plus"> Add a training </div>
+            <div class="icon ion-plus"> Ajouter un entraînement </div>
           </ion-item>
         </div>
         <div class="item item-divider center-text" ng-click="addTrainingWeek( )">
           <i class="icon ion-plus"></i>
-          Add a week
+          Ajouter une semaine
         </div>
       </div>
   </ion-content>
