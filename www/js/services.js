@@ -28,20 +28,23 @@ angular.module('starter.services', ['ngCordova'])
         }, onErrorQuery)
 
 
+        /*
+        $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=1');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=2');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=3');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=4');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=5');
+        $cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
+        $cordovaSQLite.execute(db, 'DROP TABLE T_SPORT');
+*/
+
       $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_SPORT (id integer primary key, name, isDistanceAvailable, isTimeAvailable, isOccurenceAvailable, logoURL, maxDistance, stepDistance, maxTime, stepTime, UNIQUE(name))')
         .then(function(res){
         }, onErrorQuery)
 
 
 
-/*
-$cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=1');
-$cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=2');
-$cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=3');
-$cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=4');
-$cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=5');
-$cordovaSQLite.execute(db, 'DELETE FROM T_SPORT WHERE id=6');
-*/
+
         initSportDB();
 
 
