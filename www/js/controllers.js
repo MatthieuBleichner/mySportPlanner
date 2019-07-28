@@ -148,8 +148,8 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
         newTraining.distance = -1;
 
         newTraining.imgUrl = "img/run.svg"
-        newTraining.title = "first training";
-        newTraining.content = "my first run";
+        newTraining.title = "premier entraînement";
+        newTraining.content = "première sortie de course à pied";
         newTraining.weekDay = 1;
 
         iNbWeek = $scope.planCreationPerWeek.length;
@@ -398,8 +398,8 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
           newTraining.distance = -1;
 
           newTraining.imgUrl = "img/run.svg"
-          newTraining.title = "first training";
-          newTraining.content = "my first run";
+          newTraining.title = "premier entraînement";
+          newTraining.content = "première sortie de course à pied";
           newTraining.weekDay = 1;
           $scope.planCreationPerWeek[0].push( newTraining );
           $scope.currentPlan.name = "";
@@ -455,8 +455,8 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
         newTraining.imgUrl = "img/run.svg"
         iNbTraining = $scope.planCreationPerWeek[iWeekId].length + 1;
-        newTraining.title = "training " + iNbTraining;
-        newTraining.content = "training " + iNbTraining;
+        newTraining.title = "Entraînement " + iNbTraining;
+        newTraining.content = "Entraînement " + iNbTraining;
         newTraining.weekDay = 1;
 
         $scope.planCreationPerWeek[iWeekId].push( newTraining );
