@@ -672,20 +672,22 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
       return function(input, format) {
 
           var inputDate = new Date(input).toLocaleDateString();
+
           var today = new Date().toLocaleDateString();
           var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toLocaleDateString();
           if( inputDate == today )
           {
-            return "Today";
+            return "Aujourd'hui";
           }
           else if ( inputDate == tomorrow ) {
-            return "Tomorrow";
+            return "Demain";
           }
-          else{
-            return $filter('date')(new Date(input), format);
-          }
+//          else{
+//            return $filter('date')(new Date(input), format);
+//          }
 
-          return input;
+          var options = { weekday: 'long', month: 'long', day: 'numeric' };
+          return new Date( input ).toLocaleDateString('fr-FR', options);
       };
   })
 
@@ -769,7 +771,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
 
 
-    var calMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var calMonths = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
     // these are the days of the week for each month, in order
     var calDaysForMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -778,12 +780,12 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
 
     var CurrentDate = new Date();
 
-    $scope.calMonths = [[{'id':0,'name':'Jan'},{'id':1,'name':'Feb'},{'id':2,'name':'Mar'},{'id':3,'name':'Apr'}],[{'id':4,'name':'May'},{'id':5,'name':'Jun'},{'id':6,'name':'Jul'},{'id':7,'name':'Aug'}],[{'id':8,'name':'Sep'},{'id':9,'name':'Oct'},{'id':10,'name':'Nov'},{'id':11,'name':'Dec'}]];
+    $scope.calMonths = [[{'id':0,'name':'Jan'},{'id':1,'name':'Fev'},{'id':2,'name':'Mar'},{'id':3,'name':'Avr'}],[{'id':4,'name':'Mai'},{'id':5,'name':'Jui'},{'id':6,'name':'Jui'},{'id':7,'name':'Aou'}],[{'id':8,'name':'Sep'},{'id':9,'name':'Oct'},{'id':10,'name':'Nov'},{'id':11,'name':'Dec'}]];
 
             selectedYear = CurrentDate.getFullYear(),
             selectedMonth = CurrentDate.getMonth(),
             selectedDate = CurrentDate.getDate();
-            var selectedWeek = moment(CurrentDate).week();
+            var selectedWeek = moment(CurrentDate).startOf('isoweek').week();
 
 
 
@@ -794,14 +796,9 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
             $scope.UICalendarDisplay.Year = false;
 
             $scope.displayCompleteDate = function() {
-                var timeStamp = new Date(selectedYear,selectedMonth,selectedDate).getTime();
-                if(angular.isUndefined($scope.dateformat)) {
-                    var format = "dd - MMM - yy";
-                } else {
-                    var format = $scope.dateformat;
-                }
-                $scope.displayWeekDay = moment(timeStamp).format('dddd');
-                //$scope.display = $filter('date')(timeStamp, format);
+
+                var options = { weekday: 'long' };
+                $scope.displayWeekDay = new Date( selectedYear,selectedMonth,selectedDate ).toLocaleDateString('fr-FR', options);
             }
 
             //Onload Display Current Date
@@ -983,7 +980,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                 $scope.datesDisp = [[],[],[],[],[],[]];
                     countDatingStart = 1;
 
-                    if(calMonths[selectedMonth] === 'February') {
+                    if(calMonths[selectedMonth] === 'Février') {
                         if(selectedYear%4 === 0) {
                             endingDateLimit = 29;
                         } else {
@@ -1050,7 +1047,7 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
               if( trainings ){
                 for(trainingJt=0;trainingJt<trainings.length;trainingJt++)
                 {
-                    listOfTrainingForThisDay [nextPos] = {"img" : trainings[trainingJt].imgUrl ,"duration":trainings[trainingJt].duration ,"date":fullDate.format('DD') , "training":trainings[trainingJt]};
+                    listOfTrainingForThisDay [nextPos] = {"img" : trainings[trainingJt].imgUrl ,"duration":trainings[trainingJt].duration ,"date":date , "training":trainings[trainingJt]};
                     nextPos++;
                 }
               }
@@ -1068,28 +1065,37 @@ angular.module('starter.controllers', ['ngCordova','papa-promise'])
                 $scope.weekDays = [];
                 $scope.weekDaysEvents = [ [],[],[],[],[],[],[] ];
 
-                dayOfWeek = moment().week(selectedWeek).year(selectedYear).isoWeekday(1);
-                dayOfWeek.startOf('isoweek');
+                //dayOfWeek = moment().startOf('isoweek').week(selectedWeek).year(selectedYear);
+                dayTimeOfWeek = new Date( selectedYear,0, ( (selectedWeek - 1) * 7) )
+
+                var weekdayOptions = { weekday: 'short' };
+                var dateOptions = {  day: 'numeric' };
+                //return new Date( input ).toLocaleDateString('fr-FR', options);
+
+                //dayOfWeek.startOf('isoweek');
                 for(dayIt=0;dayIt<7;dayIt++)
                 {
-                  fullDate = dayOfWeek;
-                  dayString = fullDate.format('ddd');
-                  date = fullDate.format('Do');
+                  //fullDate = dayOfWeek;
+                  //fullDate.locale('de');
+                  var fullDate = new Date( );
+                  fullDate.setDate( dayTimeOfWeek.getDate() + dayIt);
+                  var dayString = fullDate.toLocaleDateString('fr-FR', weekdayOptions);
+                  date = fullDate.toLocaleDateString('fr-FR', dateOptions);
                   $scope.weekDays[dayIt] = {date,dayString};
-                  realDate = fullDate.toDate();
+                  //realDate = fullDate.toDate();
                   dayEvents = [];
                   nextPos = 0;
                   var trainingsForThisDay;
-                  $scope.getDayTraining( realDate, function(data){
+                  $scope.getDayTraining( fullDate, function(data){
                     trainingsForThisDay = data
                   })
                   if( trainingsForThisDay.length ){
                     $scope.weekDaysEvents [dayIt] = trainingsForThisDay;
                   }
                   else{
-                      $scope.weekDaysEvents [dayIt][0] = {"month":fullDate.month(), "img" : "" ,"duration":"","date":fullDate.format('DD'),"id":""};
+                      $scope.weekDaysEvents [dayIt][0] = {"month":fullDate.getMonth(), "img" : "" ,"duration":"","date":date,"id":""};
                   }
-                  fullDate = dayOfWeek.add( 1, 'd' );
+                  //fullDate = dayOfWeek.add( 1, 'd' );
 
                   /*
                    $scope.weekDaysEvents [dayIt][1] = {"type":"currentMonth","date":'a'};

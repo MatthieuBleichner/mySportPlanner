@@ -52,7 +52,7 @@
       		  <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedMonthNextClick()"></i></div>
       		</div>
       		<div class="row Daysheading Daysheading_Label" style="background-color: #383737; color: white;">
-      		  <div class="col">Mo</div><div class="col">Tu</div><div class="col">We</div><div class="col">Th</div><div class="col">Fr</div><div class="col">Sa</div><div class="col">Su</div>
+      		  <div class="col">Lu</div><div class="col">Ma</div><div class="col">Me</div><div class="col">Je</div><div class="col">Ve</div><div class="col">Sa</div><div class="col">Di</div>
       		</div>
       		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{'marginTop0':$first}">
       		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{'fadeDateDisp':(colVal.type == 'oldMonth' || colVal.type == 'newMonth'), 'selDate':(colVal.date == displayDate && colVal.type == 'currentMonth')}"  ng-click="selectedDateClick(colVal)" >
