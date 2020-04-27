@@ -480,8 +480,8 @@ angular.module('starter.services', ['ngCordova'])
                 $cordovaLocalNotification.schedule({
                     id: notifID,
                     firstAt: alarmTime,
-                    text: "Tomorrow : " + training.title + " " + training.duration + " min",
-                    title: "My sport planner",
+                    text: "Demain : " + training.title + " " + training.duration + " min",
+                    title: "Sport planner",
                     autoCancel: true,
                     //icon: 'res://drawable-hdpi/icon.png',
                     smallIcon: 'res://drawable-hdpi/icon.png',
